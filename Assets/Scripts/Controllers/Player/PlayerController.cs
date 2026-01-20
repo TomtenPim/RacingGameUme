@@ -24,7 +24,5 @@ public class PlayerController : CarController
             Debug.Log("Pause");
         }
 
-        Debug.Log(moveAction.ReadValue<Vector2>() + " drift: " + driftAction.IsPressed());
-
     }
 }
