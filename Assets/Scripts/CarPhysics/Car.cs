@@ -8,7 +8,7 @@ public class Car : MonoBehaviour
     //GameObject[] Wheels;  
 
     float acceleration = new();
-    float velocity  = new();
+    float velocity = new();
     float maxVelocity;
 
     float dragAndFrictionMultiplier = 0.95f;
@@ -18,7 +18,7 @@ public class Car : MonoBehaviour
 
     float degreeTurning = 0;
     float turning;
-   
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,7 +33,7 @@ public class Car : MonoBehaviour
         turningDirection = Vector3.forward;
         degreeTurning = 0;
 
-                   
+
         if (Keyboard.current.spaceKey.IsPressed())
         {
             acceleration = 1;
@@ -45,7 +45,7 @@ public class Car : MonoBehaviour
             degreeTurning = -10;
         }
 
-        if (Keyboard.current.dKey.IsPressed()) 
+        if (Keyboard.current.dKey.IsPressed())
         {
             //turningDirection = Vector3.right;
             degreeTurning = 10;
@@ -55,6 +55,6 @@ public class Car : MonoBehaviour
         //velocity = velocity * dragAndFrictionMultiplier;
 
         this.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + degreeTurning * velocity * Time.deltaTime, Vector3.up);
-        this.transform.position += this.transform.rotation* Vector3.forward * velocity * Time.deltaTime;
+        this.transform.position += this.transform.rotation * Vector3.forward * velocity * Time.deltaTime;
     }
 }
