@@ -8,7 +8,10 @@ public class CheckeredLine : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
-            RaceManager.Instance.CompletedLap();
+            if (other.GetComponent<CarController>() != null)
+            {
+                RaceManager.Instance.CompletedLap(other.GetComponent<CarController>());
+            }
         }
     }
 
