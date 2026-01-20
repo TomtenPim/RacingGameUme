@@ -9,13 +9,15 @@ public class Car : MonoBehaviour
 
     float acceleration = new();
     float velocity  = new();
+    float maxVelocity;
 
     float dragAndFrictionMultiplier = 0.95f;
 
     Vector3 currentDirection;
     Vector3 turningDirection;
 
-    float degreeTurning = 0; 
+    float degreeTurning = 0;
+    float turning;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -50,7 +52,7 @@ public class Car : MonoBehaviour
         }
 
         velocity += acceleration;
-        velocity = velocity * dragAndFrictionMultiplier;
+        //velocity = velocity * dragAndFrictionMultiplier;
 
         this.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.y + degreeTurning * velocity * Time.deltaTime, Vector3.up);
         this.transform.position += this.transform.rotation* Vector3.forward * velocity * Time.deltaTime;
