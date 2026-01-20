@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ProceduralTrack), true)]
-public class ProceduralTrackEditor : Editor
+[CustomEditor(typeof(ProceduralMesh), true)]
+public class ProceduralMeshEditor : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -13,7 +13,7 @@ public class ProceduralTrackEditor : Editor
         
         if (GUILayout.Button("Update Track Mesh"))
         {
-            ProceduralTrack pm = target as ProceduralTrack;
+            ProceduralMesh pm = target as ProceduralMesh;
             pm.UpdateTrackMesh();
         }
     }

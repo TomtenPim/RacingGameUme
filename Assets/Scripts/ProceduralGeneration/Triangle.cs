@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Triangle : ProceduralTrack
+public class Triangle : ProceduralMesh
 {
     protected override Mesh CreateTrackMesh()
     {
@@ -27,7 +27,15 @@ public class Triangle : ProceduralTrack
             0, 1, 2
         };
 
+        mesh.uv = new Vector2[]
+        {
+            new Vector2(0.0f, 0.0f),
+            new Vector2(0.5f, 1.0f),
+            new Vector2(1.0f, 0.0f)
+        };
+
         mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
 
         return mesh;
     }

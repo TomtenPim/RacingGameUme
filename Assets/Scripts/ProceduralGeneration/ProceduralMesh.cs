@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 [ExecuteInEditMode]
-public abstract class ProceduralTrack : MonoBehaviour
+public abstract class ProceduralMesh : MonoBehaviour
 {
     private Mesh trackMesh;
 
