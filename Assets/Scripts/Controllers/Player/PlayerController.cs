@@ -25,6 +25,8 @@ public class PlayerController : CarController
     {
         base.Update();
 
+        if (Time.timeScale == 0) return;
+
         Vector2 moveDirection = moveAction.ReadValue<Vector2>();
 
         if(moveAction.IsPressed())

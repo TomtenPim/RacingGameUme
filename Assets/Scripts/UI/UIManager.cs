@@ -23,14 +23,15 @@ public class UIManager : MonoBehaviour
     public float maxDegrees;
 
     public GameObject EndScreen;
+    public GameObject PauseScreen;
     public TextMeshProUGUI PosEndUI;
     public TextMeshProUGUI NameEndUI;
     public TextMeshProUGUI TimeEndUI;
     public Button PlayAgainButton;
     public Button MainMenuButton;
-
-    // might be moved to raceManager
-    private float Timer = 0;
+    public Button ResumePauseButton;
+    public Button RestartPauseButton;
+    public Button MainMenuPauseButton;
 
     private void Awake()
     {
@@ -52,8 +53,11 @@ public class UIManager : MonoBehaviour
             Debug.LogError("RaceManager, is not in scene or not instanced, functions may fail");
         }
 
-        // PlayAgainButton.onClick.AddListener(PlayAgain);
-        // MainMenuButton.onClick.AddListener(MainMenu);
+        PlayAgainButton.onClick.AddListener(PlayAgain);
+        MainMenuButton.onClick.AddListener(MainMenu);
+        ResumePauseButton.onClick.AddListener(Pause);
+        RestartPauseButton.onClick.AddListener(PlayAgain);
+        MainMenuPauseButton.onClick.AddListener(MainMenu);
         EndScreen.gameObject.SetActive(false);
     }
 
@@ -74,12 +78,12 @@ public class UIManager : MonoBehaviour
         if(Time.timeScale == 0)
         {
             Time.timeScale = 1;
-            Debug.Log("we unpausin cuh");
+            PauseScreen.gameObject.SetActive(false);
         }
         else
         {
             Time.timeScale = 0;
-            Debug.Log("we pausin cuh");
+            PauseScreen.gameObject.SetActive(true);
         }
 
     }
@@ -122,6 +126,7 @@ public class UIManager : MonoBehaviour
 
     public void PlayAgain()
     {
+        Time.timeScale = 1;
         int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(activeSceneIndex);
     }
