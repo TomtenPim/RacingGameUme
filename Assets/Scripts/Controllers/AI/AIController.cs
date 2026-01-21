@@ -19,7 +19,6 @@ public class AIController : CarController
 
     private AIDriveState driveState = AIDriveState.Idle;
     private AITurnState turnState = AITurnState.Idle;
-    public Vector3 testDriveToPoint;
     private Pose toDriveTo;
 
     public float CarMoveDirection => Vector3.Dot(Car.CarBody.transform.forward, Car.CarBody.linearVelocity);
@@ -37,10 +36,31 @@ public class AIController : CarController
         TurningHandler();
 
         float blendValue = 0;
-        toDriveTo = BezierCurve.Instance.GetClosestPoseFromLocation(testDriveToPoint, ref blendValue);
+        toDriveTo = BezierCurve.Instance.GetClosestPoseFromLocation(BezierCurve.Instance.DebugPosition, ref blendValue);
 
-        //        Car.transform.forward;
+        BezierCurve.Instance.DebugPosition = Car.transform.position + Car.transform.forward * 10;
 
+        ChangeDriveState(AIDriveState.Accelerate);
+        if (Car.transform.forward != toDriveTo.forward)
+        {
+            Vector3 vector = toDriveTo.position - Car.transform.position;
+            float dotProduct = Vector3.Dot(Car.transform.right, vector);
+            Debug.Log(dotProduct);
+            if (dotProduct >= 0f && dotProduct <= 0.2f)
+            {
+                ChangeTurnState(AITurnState.Idle);
+            }
+            else if (dotProduct > 0.2f)
+            {
+                ChangeTurnState(AITurnState.RightTurn);
+            }
+            else if (dotProduct < 0f)
+            {
+                ChangeTurnState(AITurnState.LeftTurn);
+            }
+
+            Debug.Log(turnState);
+        }
     }
 
     private void ChangeDriveState(AIDriveState inDriveState)
