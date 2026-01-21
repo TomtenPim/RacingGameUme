@@ -600,10 +600,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BezierCurveTest
   AllPoints:
-  - Position: {x: -3.71, y: 0, z: 0}
-    Tangent: {x: -3.78, y: 0, z: 0}
-  - Position: {x: -2.4, y: 0, z: -10.15}
-    Tangent: {x: -7.44, y: 0, z: -2.32}
+  - Position: {x: -3.57, y: 0, z: 0}
+    Tangent: {x: 5.1, y: 0, z: -0.61}
+    Distance: 0
+  - Position: {x: -3.67, y: 0, z: -5.46}
+    Tangent: {x: -2.56, y: 0, z: 1.33}
+    Distance: 9.225007
+  - Position: {x: -7.58, y: 0, z: -4}
+    Tangent: {x: -0.95, y: 0, z: 1.33}
+    Distance: 13.522408
+  - Position: {x: -3.04, y: 0, z: -2.72}
+    Tangent: {x: -0.73, y: 0, z: 1.09}
+    Distance: 18.950745
+  - Position: {x: -3.57, y: 0, z: 0}
+    Tangent: {x: 5.1, y: 0, z: -0.61}
+    Distance: 25.19271
 --- !u!4 &1319629096
 Transform:
   m_ObjectHideFlags: 0
