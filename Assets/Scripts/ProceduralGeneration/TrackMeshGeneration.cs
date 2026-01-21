@@ -8,8 +8,10 @@ public class TrackMeshGeneration : ProceduralMesh
     [SerializeField, UnityEngine.Range(0.1f, 5.0f)]
     private float trackSubdivisionSpacing = 0.5f;
 
-    [SerializeField, UnityEngine.Range(1.0f, 5.0f)]
+    [SerializeField, UnityEngine.Range(0.1f, 5.0f)]
     private float trackWidth = 2.0f;
+    [SerializeField, UnityEngine.Range(0.1f, 5.0f)]
+    private float trackHeight = 0.2f;
 
     private static readonly Vector3Int[] directions = new Vector3Int[]
     {
@@ -50,13 +52,50 @@ public class TrackMeshGeneration : ProceduralMesh
     {
         BezierCurve bezierCurve = GetComponent<BezierCurve>();
 
-        for(float t = 0; t <= bezierCurve.TotalDistance; t += trackSubdivisionSpacing)
+        for (float t = 0; t <= bezierCurve.TotalDistance; t += trackSubdivisionSpacing)
         {
             Pose pose = bezierCurve.GetPose(t);
             AddSection(pose, inVertices, inTriangles);
         }
 
+        for (int i = 0; i < inVertices.Count - 4; i += 4)
+        {
+            inTriangles.AddRange(new int[]
+            {
+                // top face
+                i + 7, i + 6, i + 2,
+                i + 7, i + 2, i + 3,
+                // bottom face
+                i + 1, i + 5, i + 4,
+                i + 1, i + 4, i + 0,
+                // left face
+                i + 7, i + 3, i + 0,
+                i + 0, i + 4, i + 7,
+               
+                // right face
+                i + 1, i + 2, i + 6,
+                i + 1, i + 6, i + 5
+            });
 
+        }
+
+        // Close the loop
+        inTriangles.AddRange(new int[]
+        {
+            // top face
+            2, inVertices.Count - 2, inVertices.Count - 1,
+            3, 2, inVertices.Count - 1,
+            // bottom face
+            inVertices.Count - 4, inVertices.Count - 3, 1,
+            0, inVertices.Count - 4, 1,
+            // left face
+            0, 3, inVertices.Count - 1,
+            inVertices.Count - 1, inVertices.Count - 4, 0,
+           
+            // right face
+            inVertices.Count - 2, 2, 1,
+            inVertices.Count - 3, inVertices.Count - 2, 1
+        });
     }
 
     protected void AddSection(Pose inPose, List<Vector3> inVertices, List<int> inTriangles)
@@ -64,8 +103,16 @@ public class TrackMeshGeneration : ProceduralMesh
         int start = inVertices.Count;
 
         Vector3 right = inPose.right * (trackWidth * 0.5f);
-        Vector3 up = inPose.up * (trackWidth * 0.5f);
+        Vector3 up = inPose.up * trackHeight;
         Vector3 forward = inPose.forward * (trackWidth * 0.5f);
+
+        inVertices.AddRange(new Vector3[]
+        {
+            inPose.position - right,
+            inPose.position + right,
+            inPose.position + right + up,
+            inPose.position - right + up
+        });
     }
 
     protected void AddQuad(List<Vector3> vertices, List<int> triangles, Vector3 cubePosition, Vector3Int forward, Vector3Int up)
