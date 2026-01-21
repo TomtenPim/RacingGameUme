@@ -35,11 +35,12 @@ public class AIController : CarController
 
         AccelerationHandler();
         TurningHandler();
-        
+
         float blendValue = 0;
         toDriveTo = BezierCurve.Instance.GetClosestPoseFromLocation(testDriveToPoint, ref blendValue);
-        
-        
+
+        //        Car.transform.forward;
+
     }
 
     private void ChangeDriveState(AIDriveState inDriveState)
