@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RaceManager : MonoBehaviour
 {
@@ -17,19 +18,33 @@ public class RaceManager : MonoBehaviour
     {
         private int carId;
         public bool IsPlayer;
-        public int RacePosition;
+        private int racePosition;
         public int CurrentLap;
         public bool CompletedRace;
         public float FinishingTime;
         public RaceState RaceState;
 
+        public Action<int> OnPositionChange;
+
         public int CarId => carId;
+        public int RacePosition
+        {
+            get
+            {
+                return racePosition;
+            }
+            set
+            {
+                racePosition = value;
+                OnPositionChange?.Invoke(racePosition);
+            }
+        }
 
         public CarRaceState(int inCarId, bool inIsPlayer = false, int inRacePosition = 0, int inCurrentLap = 1)
         {
             carId = inCarId;
             IsPlayer = inIsPlayer;
-            RacePosition = inRacePosition;
+            racePosition = inRacePosition;
             CurrentLap = inCurrentLap;
             CompletedRace = false;
             FinishingTime = 0;
@@ -55,7 +70,7 @@ public class RaceManager : MonoBehaviour
     }
 
     public static RaceManager Instance;
-    private Dictionary<CarController, CarRaceState> carControllers = new();
+    private Dictionary<CarController, CarRaceState> carsInRace = new();
     [SerializeField] private RaceData raceData = new(3, 2);
     public RaceData GetRaceData => raceData;
     [SerializeField] private GameObject carPrefab;
@@ -77,6 +92,11 @@ public class RaceManager : MonoBehaviour
 
     private void Start()
     {
+        if (UIManager.Instance == null)
+        {
+            Debug.LogError("UIManager, is not in scene or not instanced, functions may fail");
+        }
+
         InitRace();
     }
 
@@ -88,6 +108,7 @@ public class RaceManager : MonoBehaviour
             if (i == 0)
             {
                 car = Instantiate(playerPrefab);
+
             }
             else
             {
@@ -105,7 +126,12 @@ public class RaceManager : MonoBehaviour
             CarRaceState carRaceState = new CarRaceState((i + 1), false);
             carRaceState.IsPlayer = carController is PlayerController ? true : false;
 
-            carControllers.Add(carController, carRaceState);
+            if (carRaceState.IsPlayer)
+            {
+                carRaceState.OnPositionChange += PlayerPositionChange;
+            }
+
+            carsInRace.Add(carController, carRaceState);
         }
         StartRace();
     }
@@ -120,19 +146,25 @@ public class RaceManager : MonoBehaviour
         while (!isRaceCompleted)
         {
             raceData.RaceTime += Time.deltaTime;
+            UIManager.Instance.SetTimer(raceData.RaceTime);
             yield return new WaitForEndOfFrame();
         }
     }
 
+    private void PlayerPositionChange(int position)
+    {
+        UIManager.Instance.SetRacePosition(position);
+    }
+
     public void CompletedLap(CarController inCarController)
     {
-        if (!carControllers.ContainsKey(inCarController))
+        if (!carsInRace.ContainsKey(inCarController))
         {
             Debug.LogError($"{inCarController.gameObject} CarController is not in the carControllers dictionary, somethings when wrong");
             return;
         }
 
-        CarRaceState carRaceState = carControllers[inCarController];
+        CarRaceState carRaceState = carsInRace[inCarController];
 
         switch (carRaceState.RaceState)
         {
@@ -161,15 +193,19 @@ public class RaceManager : MonoBehaviour
 
     private void CarCompletedRace(CarController inCarController)
     {
-        CarRaceState carRaceState = carControllers[inCarController];
+        CarRaceState carRaceState = carsInRace[inCarController];
 
         carRaceState.FinishingTime = raceData.RaceTime;
         carRaceState.CompletedRace = true;
         carRaceState.RaceState = RaceState.RaceCompleted;
 
+        UIManager.Instance.AddToLeaderBoard(carRaceState.RacePosition, "" + carRaceState.CarId, carRaceState.FinishingTime);
+
         if (carRaceState.IsPlayer)
         {
             Debug.LogWarning("THIS IS PLAYER :]");
+            UIManager.Instance.ShowEndScreen();
+
             // Open finished Ui 
         }
 
@@ -181,7 +217,7 @@ public class RaceManager : MonoBehaviour
     private void CheckIsRaceCompleted()
     {
         // check if all cars has finished the race  
-        foreach (var carState in carControllers)
+        foreach (var carState in carsInRace)
         {
             if (!carState.Value.CompletedRace)
             {
