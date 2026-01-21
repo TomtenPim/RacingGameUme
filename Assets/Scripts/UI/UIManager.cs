@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
 
     public RawImage SpeedometerArrow;
     public TextMeshProUGUI TimeUI;
@@ -29,22 +32,34 @@ public class UIManager : MonoBehaviour
     // might be moved to raceManager
     private float Timer = 0;
 
+    private void Awake()
+    {
+        if (UIManager.Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlayAgainButton.onClick.AddListener(PlayAgain);
-        MainMenuButton.onClick.AddListener(MainMenu);
+        if (RaceManager.Instance == null)
+        {
+            Debug.LogError("RaceManager, is not in scene or not instanced, functions may fail");
+        }
+
+        // PlayAgainButton.onClick.AddListener(PlayAgain);
+        // MainMenuButton.onClick.AddListener(MainMenu);
         EndScreen.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // might be moved to raceManager
-        Timer += Time.deltaTime;
-        SetTimer(Timer);
-        SetRacePosition(1 + (int)Timer % 12);
-
         SpeedometerArrow.transform.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(minDegrees, maxDegrees, SpeedometerValue));
 
     }
@@ -57,7 +72,7 @@ public class UIManager : MonoBehaviour
 
     public void SetRacePosition(int pos)
     {
-        RacePositionUI.text = "#"+pos.ToString();
+        RacePositionUI.text = "#" + pos.ToString();
     }
 
     public void ShowEndScreen()
@@ -67,10 +82,10 @@ public class UIManager : MonoBehaviour
 
     public void AddToLeaderBoard(int InPosition, string InName, float InTime)
     {
-            TimeSpan time = TimeSpan.FromSeconds((double)InTime);
-            PosEndUI.text += InPosition + "\n";
-            NameEndUI.text += InName + "\n";
-            TimeEndUI.text += time.ToString(@"mm\:ss\:fff") + "\n";
+        TimeSpan time = TimeSpan.FromSeconds((double)InTime);
+        PosEndUI.text += InPosition + "\n";
+        NameEndUI.text += InName + "\n";
+        TimeEndUI.text += time.ToString(@"mm\:ss\:fff") + "\n";
     }
 
     public void ClearLeaderBoard()
