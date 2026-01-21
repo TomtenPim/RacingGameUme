@@ -20,6 +20,11 @@ public class PlayerController : CarController
         pauseAction.performed += pauseGame;
     }
 
+    private void OnDisable()
+    {
+        pauseAction.performed -= pauseGame;
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
