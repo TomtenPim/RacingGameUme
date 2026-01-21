@@ -1,12 +1,15 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 
-public class HardCube : ProceduralMesh
+[RequireComponent(typeof(BezierCurve))]
+public class TrackMeshGeneration : ProceduralMesh
 {
-    public int cubeCount = 1000;
-    public int cubeRange = 1000;
+    [SerializeField, UnityEngine.Range(0.1f, 5.0f)]
+    private float trackSubdivisionSpacing = 0.5f;
+
+    [SerializeField, UnityEngine.Range(1.0f, 5.0f)]
+    private float trackWidth = 2.0f;
 
     private static readonly Vector3Int[] directions = new Vector3Int[]
     {
@@ -27,29 +30,13 @@ public class HardCube : ProceduralMesh
     {
         Mesh mesh = new Mesh();
         mesh.hideFlags = HideFlags.DontSave;
-        mesh.name = "HardCube";
+        mesh.name = "Track";
 
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
 
-        float f1 = 0.5f;
-        float f2 = cubeRange;
+        GenerateTrack(vertices, triangles);
 
-        List<Vector3> cubePositions = new List<Vector3>();
-
-        for(int x = 0; x <= cubeCount; x++)
-        {
-            cubePositions.Add(new Vector3(Random.Range(f1, f2), Random.Range(f1, f2), Random.Range(f1, f2)));
-        }
-
-
-        foreach (Vector3 cubePosition in cubePositions)
-        {
-            for (int i = 0; i < directions.Length; i++)
-            {
-                AddQuad(vertices, triangles, cubePosition, directions[i], upDirections[i]);
-            }
-        }
         mesh.SetVertices(vertices);
         mesh.SetTriangles(triangles, 0);
 
@@ -57,6 +44,28 @@ public class HardCube : ProceduralMesh
         mesh.RecalculateBounds();
 
         return mesh;
+    }
+
+    protected void GenerateTrack(List<Vector3> inVertices, List<int> inTriangles)
+    {
+        BezierCurve bezierCurve = GetComponent<BezierCurve>();
+
+        for(float t = 0; t <= bezierCurve.TotalDistance; t += trackSubdivisionSpacing)
+        {
+            Pose pose = bezierCurve.GetPose(t);
+            AddSection(pose, inVertices, inTriangles);
+        }
+
+
+    }
+
+    protected void AddSection(Pose inPose, List<Vector3> inVertices, List<int> inTriangles)
+    {
+        int start = inVertices.Count;
+
+        Vector3 right = inPose.right * (trackWidth * 0.5f);
+        Vector3 up = inPose.up * (trackWidth * 0.5f);
+        Vector3 forward = inPose.forward * (trackWidth * 0.5f);
     }
 
     protected void AddQuad(List<Vector3> vertices, List<int> triangles, Vector3 cubePosition, Vector3Int forward, Vector3Int up)

@@ -11,7 +11,7 @@ public abstract class ProceduralMesh : MonoBehaviour
 
     protected virtual void Start()
     {
-        CreateTrackMesh();
+        CreateMesh();
     }
 
     protected virtual void OnDestroy()
@@ -34,11 +34,11 @@ public abstract class ProceduralMesh : MonoBehaviour
         }
     }
 
-    protected abstract Mesh CreateTrackMesh();
+    protected abstract Mesh CreateMesh();
 
     public virtual void UpdateMesh()
     {
-        trackMesh = CreateTrackMesh();
+        trackMesh = CreateMesh();
         GetComponent<MeshFilter>().mesh = trackMesh;
     }
 }

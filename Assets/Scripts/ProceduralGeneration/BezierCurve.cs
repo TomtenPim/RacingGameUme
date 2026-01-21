@@ -27,6 +27,21 @@ public class BezierCurve : MonoBehaviour
 
     public Vector3 DebugPosition;
 
+    public static BezierCurve Instance;
+
+    private void Awake()
+    {
+        if (BezierCurve.Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple BezierCurve instances detected. Only one instance is allowed.");
+            Destroy(this);
+        }
+    }
+
     public IEnumerable<ControlPoint> Points
     {
         get
