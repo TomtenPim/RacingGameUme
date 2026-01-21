@@ -13,6 +13,8 @@ public class UnityPhysicsCar : MonoBehaviour
 
     Rigidbody carBody;
 
+    int turnDirection = 0;
+
     float turningAngle = 0;
     Quaternion turningQuaternion = new ();
 
@@ -23,20 +25,33 @@ public class UnityPhysicsCar : MonoBehaviour
         carBody = GetComponent<Rigidbody>();
     }
 
+    public void Accelerate(float Direction)
+    {
+        carBody.AddForce(turningQuaternion * carBody.transform.forward * forwardAcceleration * Direction);
+    }
+
+    public void Turn(int Direction)
+    {
+        if (Vector3.Dot(carBody.transform.forward, carBody.linearVelocity) < 0)
+        {
+            Direction *= -1;
+        }
+
+        turningAngle += turnSpeedMultiplier * Direction;
+        turnDirection = Direction;
+    }
+
+    public float getSpeed()
+    {
+
+        return carBody.linearVelocity.magnitude;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.aKey.IsPressed())
-        {
-            turningAngle -= turnSpeedMultiplier;
-        }
 
-        if (Keyboard.current.dKey.IsPressed())
-        {
-            turningAngle += turnSpeedMultiplier;
-        }
-
-        if (turningAngle != 0 && !Keyboard.current.dKey.IsPressed() && !Keyboard.current.aKey.IsPressed())
+        if (turningAngle != 0 && turnDirection == 0)
         {
             turningAngle -= turningAngle / Mathf.Abs(turningAngle) * turnSpeedMultiplier;
         }
@@ -44,10 +59,6 @@ public class UnityPhysicsCar : MonoBehaviour
         turningAngle = Mathf.Clamp(turningAngle,-30,30);
         turningQuaternion = Quaternion.AngleAxis(turningAngle, Vector3.up);
 
-        if (Keyboard.current.spaceKey.IsPressed())
-        {
-            carBody.AddForce(turningQuaternion * carBody.transform.forward * forwardAcceleration);
-        }
 
         Debug.DrawLine(carBody.position, (carBody.position + carBody.transform.forward * 15), Color.red);
         Debug.DrawLine(carBody.position, (carBody.position + turningQuaternion * carBody.transform.forward * 10), Color.green);

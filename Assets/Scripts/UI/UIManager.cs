@@ -60,7 +60,27 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void updateSpeedometer(float value)
+    {
+        SpeedometerValue = value;
         SpeedometerArrow.transform.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(minDegrees, maxDegrees, SpeedometerValue));
+    }
+
+    public void Pause()
+    {
+        if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            Debug.Log("we unpausin cuh");
+        }
+        else
+        {
+            Time.timeScale = 0;
+            Debug.Log("we pausin cuh");
+        }
 
     }
 
