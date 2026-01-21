@@ -13,10 +13,12 @@ public class UnityPhysicsCar : MonoBehaviour
 
     Rigidbody carBody;
 
+    public Rigidbody CarBody => carBody;
+
     int turnDirection = 0;
 
     float turningAngle = 0;
-    Quaternion turningQuaternion = new ();
+    Quaternion turningQuaternion = new();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,7 +58,7 @@ public class UnityPhysicsCar : MonoBehaviour
             turningAngle -= turningAngle / Mathf.Abs(turningAngle) * turnSpeedMultiplier;
         }
 
-        turningAngle = Mathf.Clamp(turningAngle,-30,30);
+        turningAngle = Mathf.Clamp(turningAngle, -30, 30);
         turningQuaternion = Quaternion.AngleAxis(turningAngle, Vector3.up);
 
 
@@ -72,7 +74,7 @@ public class UnityPhysicsCar : MonoBehaviour
             Quaternion TargetQuaternion = Quaternion.LookRotation(turningQuaternion * carBody.transform.forward, carBody.transform.up);
             float turningRate = Mathf.Clamp(Time.deltaTime * carBody.linearVelocity.magnitude * velocityToTurnSpeedMultiplier, 0, 0.3f);
 
-            carBody.transform.rotation = Quaternion.Slerp(StartQuaternion, TargetQuaternion, TurningCurve.Evaluate(carBody.linearVelocity.magnitude)* Time.deltaTime);
-        } 
+            carBody.transform.rotation = Quaternion.Slerp(StartQuaternion, TargetQuaternion, TurningCurve.Evaluate(carBody.linearVelocity.magnitude) * Time.deltaTime);
+        }
     }
 }
