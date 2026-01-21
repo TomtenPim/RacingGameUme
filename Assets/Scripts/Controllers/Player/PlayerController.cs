@@ -20,6 +20,11 @@ public class PlayerController : CarController
         pauseAction.performed += pauseGame;
     }
 
+    private void OnDisable()
+    {
+        pauseAction.performed -= pauseGame;
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
@@ -34,7 +39,7 @@ public class PlayerController : CarController
         {
             Car.Turn((int)moveDirection.x);
 
-            Car.Accelerate(Mathf.Clamp(moveDirection.y, -0.5f, 1));
+            Car.Accelerate(Mathf.Clamp(moveDirection.y, -0.7f, 1));
         }
         else if (moveAction.WasReleasedThisFrame())
         {
