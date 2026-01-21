@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Cube : ProceduralMesh
 {
-    protected override Mesh CreateTrackMesh()
+    protected override Mesh CreateMesh()
     {
         Mesh mesh = new Mesh();
         mesh.hideFlags = HideFlags.DontSave;
