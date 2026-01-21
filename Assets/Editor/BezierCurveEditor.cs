@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEditor.TerrainTools;
+using UnityEngine;
 
 
 namespace Bezier
@@ -13,6 +14,8 @@ namespace Bezier
         private Tool m_oldTool;
         private float m_fBlend;
         private float m_fDistanceAlongCurve = 0.0f;
+        private float progress = 0.0f;
+
 
         private void OnEnable()
         {
@@ -52,6 +55,22 @@ namespace Bezier
             Handles.color = Color.yellow;
             Handles.SphereHandleCap(0, vPoseOnCurve.position, Quaternion.identity, 0.5f, EventType.Repaint);
             Handles.DrawLine(vPoseOnCurve.position, vPoseOnCurve.position + vPoseOnCurve.forward * 3.0f, 5.0f);
+
+            // Debug Player
+            EditorGUI.BeginChangeCheck();
+            Vector3 newTargetPosition = Handles.PositionHandle(bc.DebugPosition, Quaternion.identity);
+            Handles.color = Color.blue;
+            Handles.SphereHandleCap(0, newTargetPosition, Quaternion.identity, 0.5f, EventType.Repaint);
+            if (EditorGUI.EndChangeCheck())
+            {
+                bc.DebugPosition = newTargetPosition;
+            }
+            Pose ClosestPose = bc.GetClosestPoseFromLocation(bc.DebugPosition, ref progress);
+
+            Handles.color = Color.white;
+            Handles.SphereHandleCap(0, ClosestPose.position, Quaternion.identity, 0.5f, EventType.Repaint);
+            Handles.DrawLine(ClosestPose.position, ClosestPose.position + ClosestPose.forward * 3.0f, 5.0f);
+
         }
 
         public override void OnInspectorGUI()
@@ -145,6 +164,7 @@ namespace Bezier
             EditorGUILayout.LabelField("w4", w4.ToString("0.00"));
             GUILayout.Space(10);
             EditorGUILayout.LabelField("Sum", (w1 + w2 + w3 + w4).ToString("0.00"));
+            EditorGUILayout.LabelField("Progress: ", progress.ToString());
             GUILayout.EndVertical();
         }
 

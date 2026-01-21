@@ -36,7 +36,7 @@ public abstract class ProceduralMesh : MonoBehaviour
 
     protected abstract Mesh CreateTrackMesh();
 
-    public virtual void UpdateTrackMesh()
+    public virtual void UpdateMesh()
     {
         trackMesh = CreateTrackMesh();
         GetComponent<MeshFilter>().mesh = trackMesh;

@@ -25,6 +25,8 @@ public class BezierCurve : MonoBehaviour
 
     public float TotalDistance => !IsEmpty ? LastPoint.Distance : 0.0f;
 
+    public Vector3 DebugPosition;
+
     public IEnumerable<ControlPoint> Points
     {
         get
@@ -41,14 +43,48 @@ public class BezierCurve : MonoBehaviour
         UpdateDistances();
     }
 
-    public Pose GetPose(float distanceAlongCurve)
+    public Pose GetClosestPoseFromLocation(Vector3 inLocation, ref float outBlendValue)
     {
         if (IsEmpty)
         {
             throw new System.Exception("Cannot get position on empty Bezier curve.");
         }
 
-        if (distanceAlongCurve < FirstPoint.Distance)
+        Vector3 closestPoint = Vector3.zero;
+        Pose closestPose = new Pose();
+
+        for (int i = 1; i < AllPoints.Count; ++i)
+        {
+            ControlPoint A = AllPoints[i - 1];
+            ControlPoint B = AllPoints[i];
+
+            Vector3 vLast = A.Position;
+            for (float f = 0.0f; f <= 1.0f; f += 0.025f)
+            {
+                Vector3 vCurr = GetPosition(A, B, f);
+                if(Vector3.Distance(inLocation, vCurr) < Vector3.Distance(inLocation, closestPoint))
+                {
+                    closestPoint = vCurr;
+                    outBlendValue = Mathf.Lerp(A.Distance, B.Distance, f);
+                    closestPose.position = vCurr;
+                    closestPose.rotation = Quaternion.LookRotation(GetForward(A, B, f));
+                }
+
+                vLast = vCurr;
+            }
+        }
+
+        return closestPose;
+    }
+
+    public Pose GetPose(float inDistanceAlongCurve)
+    {
+        if (IsEmpty)
+        {
+            throw new System.Exception("Cannot get position on empty Bezier curve.");
+        }
+
+        if (inDistanceAlongCurve < FirstPoint.Distance)
         {
             return new Pose
             {
@@ -57,7 +93,7 @@ public class BezierCurve : MonoBehaviour
             };
         }
 
-        if (distanceAlongCurve > LastPoint.Distance)
+        if (inDistanceAlongCurve > LastPoint.Distance)
         {
             return new Pose
             {
@@ -71,9 +107,9 @@ public class BezierCurve : MonoBehaviour
             ControlPoint A = AllPoints[i - 1];
             ControlPoint B = AllPoints[i];
 
-            if (distanceAlongCurve < B.Distance)
+            if (inDistanceAlongCurve < B.Distance)
             {
-                float blend = Mathf.InverseLerp(A.Distance, B.Distance, distanceAlongCurve);
+                float blend = Mathf.InverseLerp(A.Distance, B.Distance, inDistanceAlongCurve);
 
                 return new Pose
                 {
@@ -86,33 +122,33 @@ public class BezierCurve : MonoBehaviour
         throw new System.Exception("Should not reach here when getting position on Bezier curve.");
     }
 
-    public static Vector3 GetPosition(ControlPoint A, ControlPoint B, float f)
+    public static Vector3 GetPosition(ControlPoint inA, ControlPoint inB, float inF)
     {
-        Vector3 p0 = A.Position;                 // <-- Start at A
-        Vector3 p1 = A.Position + A.Tangent;
-        Vector3 p2 = B.Position - B.Tangent;
-        Vector3 p3 = B.Position;                 // <-- End at B
+        Vector3 p0 = inA.Position;                 // <-- Start at A
+        Vector3 p1 = inA.Position + inA.Tangent;
+        Vector3 p2 = inB.Position - inB.Tangent;
+        Vector3 p3 = inB.Position;                 // <-- End at B
 
-        float fOneMinusT = 1.0f - f;
+        float fOneMinusT = 1.0f - inF;
 
         return p0 * fOneMinusT * fOneMinusT * fOneMinusT +
-                p1 * 3 * fOneMinusT * fOneMinusT * f +
-                p2 * 3 * fOneMinusT * f * f +
-                p3 * f * f * f;
+                p1 * 3 * fOneMinusT * fOneMinusT * inF +
+                p2 * 3 * fOneMinusT * inF * inF +
+                p3 * inF * inF * inF;
     }
 
-    public static Vector3 GetForward(ControlPoint A, ControlPoint B, float f)
+    public static Vector3 GetForward(ControlPoint inA, ControlPoint inB, float inF)
     {
-        Vector3 p0 = A.Position;                 // <-- Start at A
-        Vector3 p1 = A.Position + A.Tangent;
-        Vector3 p2 = B.Position - B.Tangent;
-        Vector3 p3 = B.Position;                 // <-- End at B
+        Vector3 p0 = inA.Position;                 // <-- Start at A
+        Vector3 p1 = inA.Position + inA.Tangent;
+        Vector3 p2 = inB.Position - inB.Tangent;
+        Vector3 p3 = inB.Position;                 // <-- End at B
 
-        f = Mathf.Clamp01(f);
-        float fOneMinusT = 1f - f;
+        inF = Mathf.Clamp01(inF);
+        float fOneMinusT = 1f - inF;
         Vector3 dir = 3f * fOneMinusT * fOneMinusT * (p1 - p0) +
-                      6f * fOneMinusT * f * (p2 - p1) +
-                      3f * f * f * (p3 - p2);
+                      6f * fOneMinusT * inF * (p2 - p1) +
+                      3f * inF * inF * (p3 - p2);
 
         return dir;
     }
@@ -131,14 +167,14 @@ public class BezierCurve : MonoBehaviour
         }
     }
 
-    protected static float CalculateDistance(ControlPoint A, ControlPoint B, int numSegments = 20)
+    protected static float CalculateDistance(ControlPoint inA, ControlPoint inB, int inNumSegments = 20)
     {
         float distance = 0.0f;
-        Vector3 last = A.Position;
-        for (int i = 1; i <= numSegments; i++)
+        Vector3 last = inA.Position;
+        for (int i = 1; i <= inNumSegments; i++)
         {
-            float f = i / (float)numSegments;
-            Vector3 current = GetPosition(A, B, f);
+            float f = i / (float)inNumSegments;
+            Vector3 current = GetPosition(inA, inB, f);
             distance += Vector3.Distance(last, current);
             last = current;
         }

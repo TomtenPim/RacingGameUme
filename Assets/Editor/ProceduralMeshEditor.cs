@@ -14,7 +14,7 @@ public class ProceduralMeshEditor : Editor
         if (GUILayout.Button("Update Track Mesh"))
         {
             ProceduralMesh pm = target as ProceduralMesh;
-            pm.UpdateTrackMesh();
+            pm.UpdateMesh();
         }
     }
 

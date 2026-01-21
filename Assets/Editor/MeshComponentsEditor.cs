@@ -24,6 +24,7 @@ namespace Game
         {
             MeshComponents mcs = target as MeshComponents;
             MeshFilter mf = mcs.GetComponent<MeshFilter>();
+            if (!mf || !mf.sharedMesh) return;
             m_positions = mf.sharedMesh.vertices;
             m_normals = mf.sharedMesh.normals;
             m_triangles = mf.sharedMesh.triangles;
@@ -45,6 +46,9 @@ namespace Game
             Vector3 vCameraPosition = SceneView.currentDrawingSceneView.camera.transform.position;
             Vector3 vCameraForward = SceneView.currentDrawingSceneView.camera.transform.forward;
             MeshComponents mcs = target as MeshComponents;
+
+            if (m_positions == null || m_normals == null || m_triangles == null)
+                return;
 
             // find visible vertices
             HashSet<int> visibleVertices = new HashSet<int>();
