@@ -570,67 +570,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1319629094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1319629096}
-  - component: {fileID: 1319629095}
-  m_Layer: 0
-  m_Name: BezierCurve
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1319629095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319629094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34ce94ca3c2dcee4898c2586b7e0f2f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BezierCurveTest
-  AllPoints:
-  - Position: {x: -3.57, y: 0, z: 0}
-    Tangent: {x: 5.1, y: 0, z: -0.61}
-    Distance: 0
-  - Position: {x: -3.67, y: 0, z: -5.46}
-    Tangent: {x: -2.56, y: 0, z: 1.33}
-    Distance: 9.225007
-  - Position: {x: -7.58, y: 0, z: -4}
-    Tangent: {x: -0.95, y: 0, z: 1.33}
-    Distance: 13.522408
-  - Position: {x: -3.04, y: 0, z: -2.72}
-    Tangent: {x: -0.73, y: 0, z: 1.09}
-    Distance: 18.950745
-  - Position: {x: -3.57, y: 0, z: 0}
-    Tangent: {x: 5.1, y: 0, z: -0.61}
-    Distance: 25.19271
-  DebugPosition: {x: -1.740935, y: 0, z: -4.32539}
---- !u!4 &1319629096
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319629094}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460512651
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +809,7 @@ Transform:
   m_GameObject: {fileID: 1497390622}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.082, y: 0.385, z: -1.92}
+  m_LocalPosition: {x: -0.502, y: 0.964, z: 0.615}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -908,8 +847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea51b11f9f640ed4581f1fe3b332e7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrackMeshGeneration
-  trackSubdivisionSpacing: 0.5
-  trackWidth: 2
+  trackSubdivisionSpacing: 0.41
+  trackWidth: 0.97
+  trackHeight: 0.1
 --- !u!23 &2009850865
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -935,7 +875,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a10f18f227bdfa54488a6a9deb10a1a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -983,19 +923,19 @@ MonoBehaviour:
   - Position: {x: -3.57, y: 0, z: 0}
     Tangent: {x: 5.1, y: 0, z: -0.61}
     Distance: 0
-  - Position: {x: -3.67, y: 0, z: -5.46}
-    Tangent: {x: -2.56, y: 0, z: 1.33}
-    Distance: 9.225007
-  - Position: {x: -7.58, y: 0, z: -4}
-    Tangent: {x: -0.95, y: 0, z: 1.33}
-    Distance: 13.522408
-  - Position: {x: -3.04, y: 0, z: -2.72}
+  - Position: {x: 10.23, y: 0, z: -5.46}
+    Tangent: {x: -8.11, y: 0, z: -7.85}
+    Distance: 20.966177
+  - Position: {x: -4.54, y: 0, z: -13.8}
+    Tangent: {x: -4.08, y: 0, z: 1.33}
+    Distance: 38.831253
+  - Position: {x: -3.69, y: 0, z: -5.95}
     Tangent: {x: -0.73, y: 0, z: 1.09}
-    Distance: 18.950745
+    Distance: 47.949936
   - Position: {x: -3.57, y: 0, z: 0}
     Tangent: {x: 5.1, y: 0, z: -0.61}
-    Distance: 25.19271
-  DebugPosition: {x: 0, y: 0, z: 0}
+    Distance: 56.4723
+  DebugPosition: {x: 4.991999, y: 0, z: 1.845326}
 --- !u!4 &2009850868
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,5 +961,4 @@ SceneRoots:
   - {fileID: 530615851}
   - {fileID: 1285856300}
   - {fileID: 1460512656}
-  - {fileID: 1319629096}
   - {fileID: 2009850868}
