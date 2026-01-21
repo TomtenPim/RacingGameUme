@@ -19,6 +19,10 @@ public class AIController : CarController
 
     private AIDriveState driveState = AIDriveState.Idle;
     private AITurnState turnState = AITurnState.Idle;
+    public Vector3 testDriveToPoint;
+    private Pose toDriveTo;
+
+    public float CarMoveDirection => Vector3.Dot(Car.CarBody.transform.forward, Car.CarBody.linearVelocity);
 
     protected override void Start()
     {
@@ -31,12 +35,16 @@ public class AIController : CarController
 
         AccelerationHandler();
         TurningHandler();
-
+        
+        float blendValue = 0;
+        toDriveTo = BezierCurve.Instance.GetClosestPoseFromLocation(testDriveToPoint, ref blendValue);
+        
+        
     }
 
     private void ChangeDriveState(AIDriveState inDriveState)
     {
-        if (inDriveState != driveState)
+        if (inDriveState == driveState)
         {
             return;
         }
@@ -44,7 +52,7 @@ public class AIController : CarController
     }
     private void ChangeTurnState(AITurnState inTurnState)
     {
-        if (inTurnState != turnState)
+        if (inTurnState == turnState)
         {
             return;
         }
@@ -67,7 +75,14 @@ public class AIController : CarController
                 break;
 
             case AIDriveState.Brake:
-                Car.getSpeed();
+                if (CarMoveDirection > 0.1f)
+                {
+                    Car.Accelerate(-1);
+                }
+                else if (CarMoveDirection < -0.1f)
+                {
+                    Car.Accelerate(1);
+                }
                 break;
         }
 
@@ -75,6 +90,20 @@ public class AIController : CarController
 
     private void TurningHandler()
     {
+        switch (turnState)
+        {
+            case AITurnState.LeftTurn:
+                Car.Turn(-1);
+                break;
+
+            case AITurnState.RightTurn:
+                Car.Turn(1);
+                break;
+
+            case AITurnState.Idle:
+                Car.Turn(0);
+                break;
+        }
 
     }
 
