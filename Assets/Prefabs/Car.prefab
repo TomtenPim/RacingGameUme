@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e841d4c5d42fe22429fc36b6005ff49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnityPhysicsCar
+  crashClip: {fileID: 8300000, guid: d793316c981fc3840baee4e06d114365, type: 3}
   forwardAcceleration: 15000
   turnSpeedMultiplier: 2
   velocityToTurnSpeedMultiplier: 0.01
