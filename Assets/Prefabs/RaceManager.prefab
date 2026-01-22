@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RaceManager
   raceData:
     RaceTime: 0
-  carPrefab: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  carPrefab: {fileID: 8306336353578566474, guid: 23d400fc9576ac843927e619b2011b57, type: 3}
+  playerPrefab: {fileID: 5829640501197963625, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
