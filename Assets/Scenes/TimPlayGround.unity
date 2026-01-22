@@ -224,7 +224,7 @@ MonoBehaviour:
   - Position: {x: 0, y: 0, z: 0}
     Tangent: {x: 0, y: 0, z: 0}
     Distance: 158.96077
-  DebugPosition: {x: -7.5565825, y: 0, z: 5.517357}
+  DebugPosition: {x: 42.450127, y: 0, z: 33.56031}
 --- !u!4 &722934540
 Transform:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -328,6 +328,10 @@ PrefabInstance:
     - target: {fileID: 5829640501197963625, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_Name
       value: PlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829640501197963625, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalPosition.x
@@ -578,7 +582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2017083164
 Transform:
   m_ObjectHideFlags: 0
@@ -732,6 +736,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RaceManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3166349012448242565, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3883908224704888793, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -772,6 +780,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
+      propertyPath: aiCarPrefab
+      value: 
+      objectReference: {fileID: 8306336353578566474, guid: 23d400fc9576ac843927e619b2011b57, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -788,6 +800,10 @@ PrefabInstance:
     - target: {fileID: 2791671332147773662, guid: 167543e51d9c2264980da80117f167a4, type: 3}
       propertyPath: m_Name
       value: CheckeredLine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791671332147773662, guid: 167543e51d9c2264980da80117f167a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
       propertyPath: m_LocalPosition.x
