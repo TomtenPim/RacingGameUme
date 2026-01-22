@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class UnityPhysicsCar : MonoBehaviour
 {
+    //public AudioSource audioSource;
+    public AudioClip crashClip;
 
     InputAction jumpAction;
 
@@ -23,6 +25,7 @@ public class UnityPhysicsCar : MonoBehaviour
     float accelerationDirection;
     float turningAngle = 0;
     Quaternion turningQuaternion = new();
+    private float VelocityLastFrame;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,6 +56,12 @@ public class UnityPhysicsCar : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (VelocityLastFrame - carBody.linearVelocity.magnitude > 20)
+        {
+            //audioSource.PlayOneShot(crashClip);
+            AudioSource.PlayClipAtPoint(crashClip,transform.position);
+        }
+
         if (turningAngle != 0 && turnDirection == 0)
         {
             turningAngle -= turningAngle / Mathf.Abs(turningAngle) * turnSpeedMultiplier;
@@ -110,6 +119,8 @@ public class UnityPhysicsCar : MonoBehaviour
             CarBody.linearVelocity = (CarBody.linearVelocity.normalized - ((carBody.transform.forward + turningQuaternion * carBody.transform.forward) / 2).normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
             //CarBody.linearVelocity = (CarBody.linearVelocity.normalized - carBody.transform.forward.normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
         }
+
+        VelocityLastFrame = carBody.linearVelocity.magnitude;
     }
 
 }
