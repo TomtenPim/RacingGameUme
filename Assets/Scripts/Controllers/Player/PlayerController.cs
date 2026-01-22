@@ -44,6 +44,7 @@ public class PlayerController : CarController
         else if (moveAction.WasReleasedThisFrame())
         {
             Car.Turn(0);
+            Car.Accelerate(0);
         }
 
         float carSpeed = Car.getSpeed();
