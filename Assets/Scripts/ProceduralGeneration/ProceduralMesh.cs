@@ -5,13 +5,13 @@ using UnityEngine;
 [ExecuteInEditMode]
 public abstract class ProceduralMesh : MonoBehaviour
 {
-    private Mesh trackMesh;
+    private Mesh proceduralMesh;
 
-    public Mesh TrackMesh => trackMesh;
+    public Mesh Mesh => proceduralMesh;
 
     protected virtual void Start()
     {
-        CreateMesh();
+        UpdateMesh();
     }
 
     protected virtual void OnDestroy()
@@ -21,15 +21,15 @@ public abstract class ProceduralMesh : MonoBehaviour
     
     void CleanUp()
     {
-        if (trackMesh != null)
+        if (proceduralMesh != null)
         {
             if(Application.isPlaying)
             {
-                Destroy(trackMesh);
+                Destroy(proceduralMesh);
             }
             else
             {
-                DestroyImmediate(trackMesh);
+                DestroyImmediate(proceduralMesh);
             }
         }
     }
@@ -38,7 +38,7 @@ public abstract class ProceduralMesh : MonoBehaviour
 
     public virtual void UpdateMesh()
     {
-        trackMesh = CreateMesh();
-        GetComponent<MeshFilter>().mesh = trackMesh;
+        proceduralMesh = CreateMesh();
+        GetComponent<MeshFilter>().mesh = proceduralMesh;
     }
 }
