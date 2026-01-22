@@ -617,8 +617,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 201326591
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.043137256}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -809,6 +809,10 @@ PrefabInstance:
       propertyPath: LapText
       value: 
       objectReference: {fileID: 2016459059}
+    - target: {fileID: 9103747054192048610, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
+      propertyPath: LapTextFadeOutTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour
     public Button RestartPauseButton;
     public Button MainMenuPauseButton;
     public TextMeshProUGUI LapText;
+    [Range(0f, 5f)]
+    public float LapTextFadeOutTime = 1f;
 
     private void Awake()
     {
@@ -84,13 +86,19 @@ public class UIManager : MonoBehaviour
         return 1 - Mathf.Cos((x * Mathf.PI) / 2);
     }
 
+    private float easeOutExpo(float x)
+    {
+        return x == 0 ? 0 : Mathf.Pow(2, 10 * x - 10);
+    }
+
     IEnumerator LapTextEaseIn()
     {
+        float t = LapTextFadeOutTime / 100;
         for(float i = 0; i < 1; i+=0.01f)
         {
-            float alpha = Mathf.Lerp(1, 0, easeIn(i));
+            float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
             LapText.color = new Color(LapText.color.r, LapText.color.g, LapText.color.b, alpha);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(t);
         }
     }
 
