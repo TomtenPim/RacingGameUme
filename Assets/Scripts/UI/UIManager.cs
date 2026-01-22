@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Splines.Interpolators;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
@@ -32,6 +35,7 @@ public class UIManager : MonoBehaviour
     public Button ResumePauseButton;
     public Button RestartPauseButton;
     public Button MainMenuPauseButton;
+    public TextMeshProUGUI LapText;
 
     private void Awake()
     {
@@ -65,6 +69,29 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateLapText(int lap)
+    {
+        LapText.text = "Lap: " + lap;
+
+        StartCoroutine(LapTextEaseIn());
+
+    }
+
+    private float easeIn(float x)
+    {
+        return 1 - Mathf.Cos((x * Mathf.PI) / 2);
+    }
+
+    IEnumerator LapTextEaseIn()
+    {
+        for(float i = 0; i < 1; i+=0.01f)
+        {
+            float alpha = Mathf.Lerp(1, 0, easeIn(i));
+            LapText.color = new Color(LapText.color.r, LapText.color.g, LapText.color.b, alpha);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     public void updateSpeedometer(float value)
@@ -151,6 +178,10 @@ public class UIManager : MonoBehaviour
             if (GUILayout.Button("Clear Leaderboard"))
             {
                 UIManager.ClearLeaderBoard();
+            }
+            if (GUILayout.Button("Lap test"))
+            {
+                UIManager.UpdateLapText(5);
             }
         }
 
