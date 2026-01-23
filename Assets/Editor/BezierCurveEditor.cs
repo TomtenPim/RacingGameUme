@@ -109,6 +109,15 @@ namespace Bezier
 
             GUILayout.Space(10);
             DebugWeights();
+
+            GUILayout.Space(20);
+
+
+            if (GUILayout.Button("Make triangle points"))
+            {
+                bc.MakeRandomPointsInTriangleShape();
+                bc.ValidatePoints();
+            }
         }
 
         protected void DrawCurve_LerpLerpLerp()
