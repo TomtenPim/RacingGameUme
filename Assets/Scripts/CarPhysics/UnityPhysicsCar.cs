@@ -12,11 +12,12 @@ public class UnityPhysicsCar : MonoBehaviour
 
     [SerializeField] float forwardAcceleration = 40;
     [SerializeField] float turnSpeedMultiplier = 2;
+    [SerializeField] float maximumTurningAngle = 40;
     [SerializeField] float velocityToTurnSpeedMultiplier = 0.0001f;
     [SerializeField] AnimationCurve TurningCurve;
     [SerializeField] GameObject[] frontWheels = new GameObject[2];
-    [SerializeField] float tireGripMultplier = 1; 
-
+    [SerializeField] float tireGripMultplier = 1;
+    [SerializeField] float offroadVelocityMultiplier = 0.95f;
 
     Rigidbody carBody;
 
@@ -67,7 +68,7 @@ public class UnityPhysicsCar : MonoBehaviour
             turningAngle -= turningAngle / Mathf.Abs(turningAngle) * turnSpeedMultiplier;
         }
 
-        turningAngle = Mathf.Clamp(turningAngle, -30, 30);
+        turningAngle = Mathf.Clamp(turningAngle, -maximumTurningAngle, maximumTurningAngle);
         turningQuaternion = Quaternion.AngleAxis(turningAngle, Vector3.up);
 
         // Vissualy turn front wheels
@@ -84,7 +85,8 @@ public class UnityPhysicsCar : MonoBehaviour
         }
 
         //Execure acceleration
-        if (Physics.Raycast(carBody.transform.position, -carBody.transform.up, 2))
+        RaycastHit hit;
+        if (Physics.Raycast(carBody.transform.position, -carBody.transform.up, out hit, 2))
         {
             carBody.AddForce(turningQuaternion * carBody.transform.forward * forwardAcceleration * accelerationDirection);
 
@@ -96,28 +98,23 @@ public class UnityPhysicsCar : MonoBehaviour
 
                 carBody.transform.rotation = Quaternion.Slerp(StartQuaternion, TargetQuaternion, TurningCurve.Evaluate(carBody.linearVelocity.magnitude) * Time.fixedDeltaTime);
             }
-        }
-
-        /*//Turn velocity toward facing, represents tires ability to not slip
-        if (Vector3.Dot(carBody.transform.forward, carBody.linearVelocity) >= -0.05)
-        {
-            CarBody.linearVelocity = (CarBody.linearVelocity.normalized + carBody.transform.forward.normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
-        }
-        else
-        {
-            CarBody.linearVelocity = (CarBody.linearVelocity.normalized - carBody.transform.forward.normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
-        }*/
 
 
-        //Turn velocity toward facing, represents tires ability to not slip
-        if (Vector3.Dot(carBody.transform.forward, carBody.linearVelocity) >= -0.05)
-        {
-            CarBody.linearVelocity = (CarBody.linearVelocity.normalized + ((carBody.transform.forward + turningQuaternion * carBody.transform.forward) / 2).normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
-        }
-        else
-        {
-            CarBody.linearVelocity = (CarBody.linearVelocity.normalized - ((carBody.transform.forward + turningQuaternion * carBody.transform.forward) / 2).normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
-            //CarBody.linearVelocity = (CarBody.linearVelocity.normalized - carBody.transform.forward.normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
+            //Turn velocity toward facing, represents tires ability to not slip
+            if (Vector3.Dot(carBody.transform.forward, carBody.linearVelocity) >= -0.05)
+            {
+                CarBody.linearVelocity = (CarBody.linearVelocity.normalized + ((carBody.transform.forward + turningQuaternion * carBody.transform.forward) / 2).normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
+            }
+            else
+            {
+                CarBody.linearVelocity = (CarBody.linearVelocity.normalized - ((carBody.transform.forward + turningQuaternion * carBody.transform.forward) / 2).normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
+                //CarBody.linearVelocity = (CarBody.linearVelocity.normalized - carBody.transform.forward.normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
+            }
+
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Offroad") && CarBody.linearVelocity.magnitude >= 10)
+            {
+                CarBody.linearVelocity = CarBody.linearVelocity * offroadVelocityMultiplier;
+            }
         }
 
         VelocityLastFrame = carBody.linearVelocity.magnitude;

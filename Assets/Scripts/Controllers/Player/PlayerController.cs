@@ -9,15 +9,19 @@ public class PlayerController : CarController
     InputAction pauseAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Start()
+    protected virtual void OnEnable()
     {
-        base.Start();
-
         moveAction = InputSystem.actions.FindAction("Move");
         driftAction = InputSystem.actions.FindAction("Drift");
         pauseAction = InputSystem.actions.FindAction("Pause");
 
         pauseAction.performed += pauseGame;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
     }
 
     private void OnDisable()
@@ -35,7 +39,7 @@ public class PlayerController : CarController
 
         Vector2 moveDirection = moveAction.ReadValue<Vector2>();
 
-        if(moveAction.IsPressed())
+        if (moveAction.IsPressed())
         {
             Car.Turn((int)moveDirection.x);
 
@@ -49,7 +53,7 @@ public class PlayerController : CarController
 
         float carSpeed = Car.getSpeed();
         float maxSpeed = 240f;
-        UIManager.Instance.updateSpeedometer(carSpeed/maxSpeed);
+        UIManager.Instance.updateSpeedometer(carSpeed / maxSpeed);
 
     }
 
@@ -57,7 +61,7 @@ public class PlayerController : CarController
 
     private void pauseGame(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
             UIManager.Instance.Pause();
         }
