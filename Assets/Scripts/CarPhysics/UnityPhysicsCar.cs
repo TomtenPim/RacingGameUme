@@ -12,6 +12,7 @@ public class UnityPhysicsCar : MonoBehaviour
 
     [SerializeField] float forwardAcceleration = 40;
     [SerializeField] float turnSpeedMultiplier = 2;
+    [SerializeField] float maximumTurningAngle = 40;
     [SerializeField] float velocityToTurnSpeedMultiplier = 0.0001f;
     [SerializeField] AnimationCurve TurningCurve;
     [SerializeField] GameObject[] frontWheels = new GameObject[2];
@@ -67,7 +68,7 @@ public class UnityPhysicsCar : MonoBehaviour
             turningAngle -= turningAngle / Mathf.Abs(turningAngle) * turnSpeedMultiplier;
         }
 
-        turningAngle = Mathf.Clamp(turningAngle, -30, 30);
+        turningAngle = Mathf.Clamp(turningAngle, -maximumTurningAngle, maximumTurningAngle);
         turningQuaternion = Quaternion.AngleAxis(turningAngle, Vector3.up);
 
         // Vissualy turn front wheels
