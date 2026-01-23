@@ -2871,7 +2871,7 @@ MonoBehaviour:
   ResumePauseButton: {fileID: 4780904977523485753}
   RestartPauseButton: {fileID: 5993478743954690046}
   MainMenuPauseButton: {fileID: 8458251746791013828}
-  LapsText: {fileID: 0}
+  LapsText: {fileID: 202786259722931838}
   LapText: {fileID: 5872239302464563339}
   CountdownText: {fileID: 9010540706534485791}
   LapTextFadeOutTime: 1
