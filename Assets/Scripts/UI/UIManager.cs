@@ -69,6 +69,10 @@ public class UIManager : MonoBehaviour
         RestartPauseButton.onClick.AddListener(PlayAgain);
         MainMenuPauseButton.onClick.AddListener(MainMenu);
         EndScreen.gameObject.SetActive(false);
+
+        int maxLaps = RaceManager.Instance.GetRaceData.MaxLaps;
+
+        LapsText.text = "Lap " + 1 + "/" + maxLaps;
     }
 
     // Update is called once per frame
