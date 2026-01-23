@@ -89,7 +89,7 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject CheckeredLine;
     [SerializeField] private GameObject HalfPointLine;
-
+    [SerializeField] Vector3 carSpawnOffset = new Vector3(4, 0, 3);
 
     private bool isRaceCompleted = false;
 
@@ -119,18 +119,24 @@ public class RaceManager : MonoBehaviour
     private void InitRace()
     {
         // Spawn cars
+        Pose carSpawnPose = BezierCurve.Instance.GetPose(BezierCurve.Instance.TotalDistance - 20);
+        int spawnSide = 1;
         for (int i = 0; i < raceData.AmountOfCarsInRace; i++)
         {
             GameObject car = null;
-            Vector3 spawnPoint = new(i * 2, 1, i * 2);
+            Vector3 spawnPoint = new(carSpawnPose.position.x + (i * carSpawnOffset.x), 1, carSpawnPose.position.z + (spawnSide * carSpawnOffset.z));
+            spawnSide *= -1;
+
             if (i == 0)
             {
-                car = Instantiate(playerPrefab, spawnPoint, Quaternion.identity);
+                car = Instantiate(playerPrefab, Vector3.zero, carSpawnPose.rotation);
             }
             else
             {
-                car = Instantiate(aiCarPrefab, spawnPoint, Quaternion.identity);
+                car = Instantiate(aiCarPrefab, Vector3.zero, carSpawnPose.rotation);
             }
+
+            car.transform.Find("Car").transform.position = spawnPoint;
 
             if (!car.GetComponent<CarController>())
             {
@@ -173,12 +179,12 @@ public class RaceManager : MonoBehaviour
         }
 
         // Spawn Checkered line
-        Pose pose = BezierCurve.Instance.GetPose(1);
-        GameObject lineObject = Instantiate(CheckeredLine, pose.position - new Vector3(0, 1, 0), pose.rotation);
+        Pose linePose = BezierCurve.Instance.GetPose(1);
+        GameObject lineObject = Instantiate(CheckeredLine, linePose.position - new Vector3(0, 1, 0), linePose.rotation);
 
         // Half Point Line
-        pose = BezierCurve.Instance.GetPose((BezierCurve.Instance.TotalDistance / 2));
-        lineObject = Instantiate(HalfPointLine, pose.position - new Vector3(0, 1, 0), pose.rotation);
+        linePose = BezierCurve.Instance.GetPose((BezierCurve.Instance.TotalDistance / 2));
+        lineObject = Instantiate(HalfPointLine, linePose.position - new Vector3(0, 1, 0), linePose.rotation);
 
         UIManager.Instance.StartCountdown(3);
     }
