@@ -40,6 +40,8 @@ public class UIManager : MonoBehaviour
     [Range(0f, 5f)]
     public float LapTextFadeOutTime = 1f;
 
+    public bool StartTimerDone = false;
+
     private void Awake()
     {
         if (UIManager.Instance == null)
@@ -71,7 +73,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void UpdateLapText(int lap)
@@ -91,7 +93,7 @@ public class UIManager : MonoBehaviour
     IEnumerator CountdownTextEaseIn(int seconds)
     {
         float t = LapTextFadeOutTime / 100;
-        while(seconds > 0)
+        while (seconds > 0)
         {
             CountdownText.text = seconds.ToString() + "!";
             for (float i = 0; i < 1; i += 0.01f)
@@ -102,6 +104,7 @@ public class UIManager : MonoBehaviour
             }
             seconds--;
         }
+        RaceManager.Instance.StartRace();
         CountdownText.text = "GO!";
         for (float i = 0; i < 1; i += 0.01f)
         {
@@ -125,7 +128,7 @@ public class UIManager : MonoBehaviour
     IEnumerator LapTextEaseIn()
     {
         float t = LapTextFadeOutTime / 100;
-        for(float i = 0; i < 1; i+=0.01f)
+        for (float i = 0; i < 1; i += 0.01f)
         {
             float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
             LapText.color = new Color(LapText.color.r, LapText.color.g, LapText.color.b, alpha);
@@ -141,7 +144,7 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
-        if(Time.timeScale == 0)
+        if (Time.timeScale == 0)
         {
             Time.timeScale = 1;
             PauseScreen.gameObject.SetActive(false);

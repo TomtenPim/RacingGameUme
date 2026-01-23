@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class RaceManager : MonoBehaviour
 {
@@ -20,10 +18,11 @@ public class RaceManager : MonoBehaviour
         private int carId;
         public bool IsPlayer;
         private int racePosition;
-        public int currentLap;
-        public bool CompletedRace;
-        public float FinishingTime;
-        public RaceState RaceState;
+        private int currentLap;
+        public bool CompletedRace = false;
+        public float FinishingTime = 0;
+        public RaceState RaceState = RaceState.FirstCrossOver;
+        public bool IsAbleToFinishLap = true;
 
         public Action<int> OnPositionChange;
         public Action<int> OnLapChange;
@@ -63,9 +62,6 @@ public class RaceManager : MonoBehaviour
             IsPlayer = inIsPlayer;
             racePosition = inRacePosition;
             currentLap = inCurrentLap;
-            CompletedRace = false;
-            FinishingTime = 0;
-            RaceState = RaceState.FirstCrossOver;
         }
     }
 
@@ -81,7 +77,6 @@ public class RaceManager : MonoBehaviour
         public RaceData(int inMaxLaps = 3, int inAmountOfCars = 5)
         {
             maxLaps = inMaxLaps;
-            RaceTime = 0;
             amountOfCarsInRace = inAmountOfCars;
         }
     }
@@ -92,6 +87,10 @@ public class RaceManager : MonoBehaviour
     public RaceData GetRaceData => raceData;
     [SerializeField] private GameObject aiCarPrefab;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject CheckeredLine;
+    [SerializeField] private GameObject HalfPointLine;
+
+
     private bool isRaceCompleted = false;
 
 
@@ -140,6 +139,7 @@ public class RaceManager : MonoBehaviour
             car.name = car.name + ": " + (i + 1);
 
             CarController carController = car.GetComponent<CarController>();
+
             CarRaceState carRaceState = new CarRaceState((i + 1), false);
             carRaceState.IsPlayer = carController is PlayerController ? true : false;
 
@@ -151,11 +151,37 @@ public class RaceManager : MonoBehaviour
 
             carsInRace.Add(carController, carRaceState);
         }
-        StartRace();
+
+        while (true)
+        {
+            bool done = true;
+            foreach (var car in carsInRace)
+            {
+                try
+                {
+                    if (car.Key is not null)
+                        car.Key.enabled = false;
+                }
+                catch (System.Exception)
+                {
+                    done = false;
+                    throw;
+                }
+            }
+            if (done) break;
+        }
+
+        UIManager.Instance.StartCountdown(3);
     }
 
-    private void StartRace()
+    public void StartRace()
     {
+        // un frizes cars
+        foreach (var car in carsInRace)
+        {
+            car.Key.enabled = true;
+        }
+
         StartCoroutine(RaceUpdate());
     }
 
@@ -167,39 +193,36 @@ public class RaceManager : MonoBehaviour
             raceData.RaceTime += Time.deltaTime;
             UIManager.Instance.SetTimer(raceData.RaceTime);
 
-            float totalCurveDistance = BezierCurve.Instance.TotalDistance;
+
+            // Get all cars position on the map spline 
             (CarRaceState raceState, float pointInTrack)[] positionData = new (CarRaceState raceState, float pointInTrack)[carsInRace.Count];
             int index = 0;
             foreach (var car in carsInRace)
             {
-                try
+                if (car.Key.CarTransform != null)
                 {
-                    if (car.Key.CarTransform != null)
-                    {
-                        float blendValue = 0;
-                        BezierCurve.Instance.GetClosestPoseFromLocation(car.Key.CarTransform.position, ref blendValue);
-                        positionData[index] = new(car.Value, blendValue);
-                        index++;
-                    }
-                }
-                catch (System.Exception)
-                {
-                    goto NextFrame;
-                    throw;
+                    float blendValue = 0;
+                    BezierCurve.Instance.GetClosestPoseFromLocation(car.Key.CarTransform.position, ref blendValue);
+                    positionData[index] = new(car.Value, blendValue);
+                    index++;
                 }
             }
 
             HashSet<CarRaceState> addedPoint = new();
-            (CarRaceState raceState, float pointInTrack) bestPoint = new(null, -1);
+            (CarRaceState raceState, float pointInTrack) bestPoint = new(new CarRaceState(-1), -1);
 
-
+            // Set the cars position in the race, based on position on the map spline 
             for (int i = 0; i < positionData.Length; i++)
             {
                 for (int j = 0; j < positionData.Length; j++)
                 {
                     if (!addedPoint.Contains(positionData[j].raceState))
                     {
-                        if (positionData[j].pointInTrack > bestPoint.pointInTrack)
+                        if (positionData[j].raceState.CurrentLap < bestPoint.raceState.CurrentLap)
+                        {
+                            continue;
+                        }
+                        if (positionData[j].raceState.CurrentLap > bestPoint.raceState.CurrentLap || positionData[j].pointInTrack > bestPoint.pointInTrack)
                         {
                             bestPoint = positionData[j];
                         }
@@ -207,9 +230,8 @@ public class RaceManager : MonoBehaviour
                 }
                 bestPoint.raceState.RacePosition = (i + 1);
                 addedPoint.Add(bestPoint.raceState);
+                bestPoint = new(new CarRaceState(-1), -1);
             }
-
-        NextFrame:
             yield return new WaitForEndOfFrame();
         }
     }
@@ -221,7 +243,19 @@ public class RaceManager : MonoBehaviour
 
     private void PlayerLapChange(int lap)
     {
-        //call UIManager
+        UIManager.Instance.UpdateLapText(lap);
+    }
+
+    public void CarPassedHalfway(CarController inCarController)
+    {
+        if (!carsInRace.ContainsKey(inCarController))
+        {
+            Debug.LogError($"{inCarController.gameObject} CarController is not in the carControllers dictionary, somethings when wrong");
+            return;
+        }
+
+        CarRaceState carRaceState = carsInRace[inCarController];
+        carRaceState.IsAbleToFinishLap = true;
     }
 
     public void CompletedLap(CarController inCarController)
@@ -233,7 +267,12 @@ public class RaceManager : MonoBehaviour
         }
 
         CarRaceState carRaceState = carsInRace[inCarController];
+        if (!carRaceState.IsAbleToFinishLap)
+        {
+            return;
+        }
 
+        carRaceState.IsAbleToFinishLap = false;
         switch (carRaceState.RaceState)
         {
             case RaceState.FirstCrossOver:
