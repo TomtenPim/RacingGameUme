@@ -570,8 +570,9 @@ GameObject:
   - component: {fileID: 1052052719}
   - component: {fileID: 1052052718}
   - component: {fileID: 1052052717}
+  - component: {fileID: 1052052720}
   m_Layer: 7
-  m_Name: Cube (1)
+  m_Name: Offroad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,6 +650,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1052052720
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052052715}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1096856162
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7992252996526585885, guid: c95f48ad0d3e3d443982e1328fcc5e79, type: 3}
       propertyPath: maximumTurningAngle
-      value: 90
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7992252996526585885, guid: c95f48ad0d3e3d443982e1328fcc5e79, type: 3}
       propertyPath: turningAcceleration
@@ -911,6 +933,10 @@ PrefabInstance:
       propertyPath: 'frontWheels.Array.data[1]'
       value: 
       objectReference: {fileID: 703512565}
+    - target: {fileID: 7992252996526585885, guid: c95f48ad0d3e3d443982e1328fcc5e79, type: 3}
+      propertyPath: offroadVelocityMultiplier
+      value: 0.97
+      objectReference: {fileID: 0}
     - target: {fileID: 7992252996526585885, guid: c95f48ad0d3e3d443982e1328fcc5e79, type: 3}
       propertyPath: velocityToTurnSpeedMultiplier
       value: 0.01
