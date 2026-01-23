@@ -118,6 +118,7 @@ public class RaceManager : MonoBehaviour
 
     private void InitRace()
     {
+        // Spawn cars
         for (int i = 0; i < raceData.AmountOfCarsInRace; i++)
         {
             GameObject car = null;
@@ -171,12 +172,19 @@ public class RaceManager : MonoBehaviour
             if (done) break;
         }
 
+        // Spawn Checkered line
+        Pose pose = BezierCurve.Instance.GetPose(1);
+        GameObject lineObject = Instantiate(CheckeredLine, pose.position - new Vector3(0, 1, 0), pose.rotation);
+
+        // Half Point Line
+        pose = BezierCurve.Instance.GetPose((BezierCurve.Instance.TotalDistance / 2));
+        lineObject = Instantiate(HalfPointLine, pose.position - new Vector3(0, 1, 0), pose.rotation);
+
         UIManager.Instance.StartCountdown(3);
     }
 
     public void StartRace()
     {
-        // un frizes cars
         foreach (var car in carsInRace)
         {
             car.Key.enabled = true;
@@ -286,8 +294,6 @@ public class RaceManager : MonoBehaviour
                 {
                     carRaceState.RaceState = RaceState.FinalLap;
                 }
-                Debug.Log(carRaceState.CurrentLap);
-
                 break;
 
             case RaceState.FinalLap:
@@ -310,11 +316,8 @@ public class RaceManager : MonoBehaviour
 
         if (carRaceState.IsPlayer)
         {
-            Debug.LogWarning("THIS IS PLAYER :]");
             UIManager.Instance.ShowEndScreen();
         }
-
-        Debug.Log($"Car has completed race, final time: {raceData.RaceTime}");
 
         CheckIsRaceCompleted();
     }
