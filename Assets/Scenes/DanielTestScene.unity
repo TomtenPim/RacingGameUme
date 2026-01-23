@@ -347,21 +347,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BezierCurve
   AllPoints:
   - Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
     Tangent: {x: -15, y: 0, z: 10}
+    ScaledTangent: {x: -15, y: 0, z: 10}
     Distance: 0
   - Position: {x: 1, y: 0, z: 30}
+    ScaledPosition: {x: 1, y: 0, z: 30}
     Tangent: {x: 10, y: 0, z: 0}
+    ScaledTangent: {x: 10, y: 0, z: 0}
     Distance: 38.166496
   - Position: {x: 40, y: 0, z: 30}
+    ScaledPosition: {x: 40, y: 0, z: 30}
     Tangent: {x: 15, y: 0, z: 0}
+    ScaledTangent: {x: 15, y: 0, z: 0}
     Distance: 77.1665
   - Position: {x: 40, y: 0, z: 0}
+    ScaledPosition: {x: 40, y: 0, z: 0}
     Tangent: {x: -15, y: 0, z: 0}
+    ScaledTangent: {x: -15, y: 0, z: 0}
     Distance: 118.96077
   - Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
     Tangent: {x: 0, y: 0, z: 0}
+    ScaledTangent: {x: 0, y: 0, z: 0}
     Distance: 158.96077
   DebugPosition: {x: -7.5565825, y: 0, z: 5.517357}
+  Scale: 1
 --- !u!4 &722934540
 Transform:
   m_ObjectHideFlags: 0
@@ -667,14 +678,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017083162}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.71, y: 1.68, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0.34526324, z: -0, w: 0.9385059}
+  m_LocalPosition: {x: 6.86, y: 1.68, z: 3.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1254876560}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -40.396, z: 0}
 --- !u!114 &2017083165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,9 +695,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017083162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a0d439402970304381d50ab8af21f60, type: 3}
+  m_Script: {fileID: 11500000, guid: dbf00216d9ed2d640af72620ab3e4503, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIControllerV2
+  m_EditorClassIdentifier: Assembly-CSharp::AIControllerV3
+  averageSpeed: 50
+  minLookAhead: 5
+  maxLookAhead: 20
+  stuckSpeedThreshold: 2
+  stuckTime: 1
+  recoveryExitDot: 0.8
 --- !u!1 &2056437531
 GameObject:
   m_ObjectHideFlags: 0

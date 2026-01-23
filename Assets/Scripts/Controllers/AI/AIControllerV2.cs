@@ -127,5 +127,12 @@ public class AIControllerV2 : CarController
         }
 
     }
+    private void OnDrawGizmos()
+    {
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(toDriveTo.position, 0.5f);
+        Gizmos.DrawLine(Car.transform.position, toDriveTo.position);
+    }
 }
+

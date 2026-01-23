@@ -21,7 +21,7 @@ public class UnityPhysicsCar : MonoBehaviour
     Rigidbody carBody;
 
     public Rigidbody CarBody => carBody;
-    int turnDirection = 0;
+    float turnDirection = 0;
     float accelerationDirection;
     float turningAngle = 0;
     Quaternion turningQuaternion = new();
@@ -39,7 +39,7 @@ public class UnityPhysicsCar : MonoBehaviour
         accelerationDirection = Direction;
     }
 
-    public void Turn(int Direction)
+    public void Turn(float Direction)
     {
         if (Vector3.Dot(carBody.transform.forward, carBody.linearVelocity) < -0.05)
         {
