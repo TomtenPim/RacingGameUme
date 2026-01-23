@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     public Button ResumePauseButton;
     public Button RestartPauseButton;
     public Button MainMenuPauseButton;
+    public TextMeshProUGUI LapsText;
     public TextMeshProUGUI LapText;
     public TextMeshProUGUI CountdownText;
     [Range(0f, 5f)]
@@ -62,12 +63,18 @@ public class UIManager : MonoBehaviour
             Debug.LogError("RaceManager, is not in scene or not instanced, functions may fail");
         }
 
+        ClearLeaderBoard();
+
         PlayAgainButton.onClick.AddListener(PlayAgain);
         MainMenuButton.onClick.AddListener(MainMenu);
         ResumePauseButton.onClick.AddListener(Pause);
         RestartPauseButton.onClick.AddListener(PlayAgain);
         MainMenuPauseButton.onClick.AddListener(MainMenu);
         EndScreen.gameObject.SetActive(false);
+
+        int maxLaps = RaceManager.Instance.GetRaceData.MaxLaps;
+
+        LapsText.text = "Lap " + 1 + "/" + maxLaps;
     }
 
     // Update is called once per frame
@@ -76,8 +83,14 @@ public class UIManager : MonoBehaviour
 
     }
 
+
+
     public void UpdateLapText(int lap)
     {
+        int maxLaps = RaceManager.Instance.GetRaceData.MaxLaps;
+
+        LapsText.text = "Lap " + lap + "/" + maxLaps;
+
         LapText.text = "Lap: " + lap;
 
         StartCoroutine(LapTextEaseIn());
