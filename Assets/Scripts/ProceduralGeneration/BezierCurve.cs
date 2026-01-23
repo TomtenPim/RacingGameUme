@@ -12,7 +12,9 @@ public class BezierCurve : MonoBehaviour
     public class ControlPoint
     {
         public Vector3 Position;
+        [HideInInspector]public Vector3 ScaledPosition;
         public Vector3 Tangent;
+        [HideInInspector] public Vector3 ScaledTangent;
         public float Distance;
     }
 
@@ -29,6 +31,8 @@ public class BezierCurve : MonoBehaviour
 
     public static BezierCurve Instance;
 
+    public float Scale = 1.0f;
+
     private void Awake()
     {
         if (BezierCurve.Instance == null)
@@ -40,7 +44,15 @@ public class BezierCurve : MonoBehaviour
             Debug.LogWarning("Multiple BezierCurve instances detected. Only one instance is allowed.");
             Destroy(this);
         }
+
+        foreach(var point in AllPoints)
+        {
+            point.ScaledPosition = point.Position * Scale;
+            point.ScaledTangent = point.Tangent * Scale;
+        }
+
     }
+
 
     public IEnumerable<ControlPoint> Points
     {
@@ -53,8 +65,13 @@ public class BezierCurve : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void OnValidate()
     {
+        foreach (var point in AllPoints)
+        {
+            point.ScaledPosition = point.Position * Scale;
+            point.ScaledTangent = point.Tangent * Scale;
+        }
         UpdateDistances();
     }
 
@@ -73,7 +90,7 @@ public class BezierCurve : MonoBehaviour
             ControlPoint A = AllPoints[i - 1];
             ControlPoint B = AllPoints[i];
 
-            Vector3 vLast = A.Position;
+            Vector3 vLast = A.ScaledPosition;
             for (float f = 0.0f; f <= 1.0f; f += 0.025f)
             {
                 Vector3 vCurr = GetPosition(A, B, f);
@@ -103,8 +120,8 @@ public class BezierCurve : MonoBehaviour
         {
             return new Pose
             {
-                position = FirstPoint.Position,
-                rotation = Quaternion.LookRotation(FirstPoint.Tangent)
+                position = FirstPoint.ScaledPosition,
+                rotation = Quaternion.LookRotation(FirstPoint.ScaledTangent)
             };
         }
 
@@ -112,8 +129,8 @@ public class BezierCurve : MonoBehaviour
         {
             return new Pose
             {
-                position = LastPoint.Position,
-                rotation = Quaternion.LookRotation(LastPoint.Tangent)
+                position = LastPoint.ScaledPosition,
+                rotation = Quaternion.LookRotation(LastPoint.ScaledTangent)
             };
         }
 
@@ -139,10 +156,10 @@ public class BezierCurve : MonoBehaviour
 
     public static Vector3 GetPosition(ControlPoint inA, ControlPoint inB, float inF)
     {
-        Vector3 p0 = inA.Position;                 // <-- Start at A
-        Vector3 p1 = inA.Position + inA.Tangent;
-        Vector3 p2 = inB.Position - inB.Tangent;
-        Vector3 p3 = inB.Position;                 // <-- End at B
+        Vector3 p0 = inA.ScaledPosition;                 // <-- Start at A
+        Vector3 p1 = inA.ScaledPosition + inA.ScaledTangent;
+        Vector3 p2 = inB.ScaledPosition - inB.ScaledTangent;
+        Vector3 p3 = inB.ScaledPosition;                 // <-- End at B
 
         float fOneMinusT = 1.0f - inF;
 
@@ -154,10 +171,10 @@ public class BezierCurve : MonoBehaviour
 
     public static Vector3 GetForward(ControlPoint inA, ControlPoint inB, float inF)
     {
-        Vector3 p0 = inA.Position;                 // <-- Start at A
-        Vector3 p1 = inA.Position + inA.Tangent;
-        Vector3 p2 = inB.Position - inB.Tangent;
-        Vector3 p3 = inB.Position;                 // <-- End at B
+        Vector3 p0 = inA.ScaledPosition;                 // <-- Start at A
+        Vector3 p1 = inA.ScaledPosition + inA.ScaledTangent;
+        Vector3 p2 = inB.ScaledPosition - inB.ScaledTangent;
+        Vector3 p3 = inB.ScaledPosition;                 // <-- End at B
 
         inF = Mathf.Clamp01(inF);
         float fOneMinusT = 1f - inF;
@@ -185,7 +202,7 @@ public class BezierCurve : MonoBehaviour
     protected static float CalculateDistance(ControlPoint inA, ControlPoint inB, int inNumSegments = 20)
     {
         float distance = 0.0f;
-        Vector3 last = inA.Position;
+        Vector3 last = inA.ScaledPosition;
         for (int i = 1; i <= inNumSegments; i++)
         {
             float f = i / (float)inNumSegments;

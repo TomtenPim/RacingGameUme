@@ -8,15 +8,17 @@ public class TrackMeshGeneration : ProceduralMesh
     [SerializeField, UnityEngine.Range(0.1f, 5.0f)]
     private float trackSubdivisionSpacing = 0.5f;
 
-    [SerializeField, UnityEngine.Range(0.1f, 10.0f)]
+    [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackWidth = 2.0f;
     
-    [SerializeField, UnityEngine.Range(0.1f, 10.0f)]
+    [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackHeight = 0.1f;
 
     protected override Mesh CreateMesh()
     {
         Mesh mesh = new Mesh();
+        MeshCollider collider = GetComponent<MeshCollider>();
+        
         mesh.hideFlags = HideFlags.DontSave;
         mesh.name = "Track";
 
@@ -31,6 +33,11 @@ public class TrackMeshGeneration : ProceduralMesh
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
+
+        if (collider != null)
+        {
+            collider.sharedMesh = mesh;
+        }
         return mesh;
     }
 

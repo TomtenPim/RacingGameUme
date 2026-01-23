@@ -35,11 +35,11 @@ namespace Bezier
             //DrawCurve_LerpLerpLerp();
             DrawCurve_Bezier();
 
-            // draw control points
+            // draw real control points
             foreach (BezierCurve.ControlPoint cp in bc.AllPoints)
             {
                 // select point?
-                Handles.color = new Color(1.0f, 0.3f, 0.3f);
+                Handles.color = new Color(0.0f, 0.3f, 1.0f);
                 Handles.SphereHandleCap(0, cp.Position, Quaternion.identity, 0.5f, EventType.Repaint);
 
                 // draw tangent line
@@ -49,6 +49,22 @@ namespace Bezier
 
                 // draw point distance
                 Handles.Label(cp.Position + Vector3.up * 0.5f, cp.Distance.ToString("0.00"));
+            }
+
+            // draw scaled control points
+            foreach (BezierCurve.ControlPoint cp in bc.AllPoints)
+            {
+                // select point?
+                Handles.color = new Color(1.0f, 0.3f, 0.3f);
+                Handles.SphereHandleCap(0, cp.ScaledPosition, Quaternion.identity, 0.5f, EventType.Repaint);
+
+                // draw tangent line
+                Handles.color = new Color(0.3f, 1.0f, 0.3f);
+                Handles.DrawLine(cp.ScaledPosition, cp.ScaledPosition + cp.ScaledTangent, 3.0f);
+                Handles.DrawDottedLine(cp.ScaledPosition, cp.ScaledPosition - cp.ScaledTangent, 5.0f);
+
+                // draw point distance
+                Handles.Label(cp.ScaledPosition + Vector3.up * 0.5f, cp.Distance.ToString("0.00"));
             }
             // point on curve!
             Pose vPoseOnCurve = bc.GetPose(m_fDistanceAlongCurve);
@@ -171,14 +187,14 @@ namespace Bezier
         protected void DrawCurve_Bezier()
         {
             BezierCurve bc = target as BezierCurve;
-            Handles.color = Color.white;
+            Handles.color = Color.red;
 
             for (int i = 1; i < bc.AllPoints.Count; ++i)
             {
                 BezierCurve.ControlPoint A = bc.AllPoints[i - 1];
                 BezierCurve.ControlPoint B = bc.AllPoints[i];
 
-                Vector3 vLast = A.Position;
+                Vector3 vLast = A.ScaledPosition;
                 for (float f = 0.0f; f <= 1.0f; f += 0.025f)
                 {
                     Vector3 vCurr = BezierCurve.GetPosition(A, B, f);
