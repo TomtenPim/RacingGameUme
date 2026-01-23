@@ -414,6 +414,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
+      propertyPath: raceData.amountOfCarsInRace
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -693,6 +697,9 @@ MonoBehaviour:
     Distance: 582.68774
   DebugPosition: {x: 9, y: 0, z: 9}
   Scale: 5
+  PointSplitAmount: 2
+  RandomTangentXRange: {x: -4, y: 4}
+  RandomTangentZRange: {x: -4, y: 4}
 --- !u!4 &2079581079
 Transform:
   m_ObjectHideFlags: 0
