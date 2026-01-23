@@ -103,12 +103,12 @@ public class AIControllerV3 : CarController
     }
 
 
-    private void OnDrawGizmos()
-    {
+    //private void OnDrawGizmos()
+    //{
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(toDriveTo.position, 0.5f);
-        Gizmos.DrawLine(Car.transform.position, toDriveTo.position);
-    }
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(toDriveTo.position, 0.5f);
+    //    Gizmos.DrawLine(Car.transform.position, toDriveTo.position);
+    //}
 }
 
