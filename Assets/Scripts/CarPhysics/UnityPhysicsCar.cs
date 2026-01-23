@@ -122,10 +122,12 @@ public class UnityPhysicsCar : MonoBehaviour
         }
 
         RaycastHit hit;
-        Physics.Raycast(carBody.transform.position, -carBody.transform.up, out hit, 2);
-        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Offroad") && CarBody.linearVelocity.magnitude >= 7)
+        if(Physics.Raycast(carBody.transform.position, -carBody.transform.up, out hit, 2))
         {
-            CarBody.linearVelocity = CarBody.linearVelocity * offroadVelocityMultiplier;
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Offroad") && CarBody.linearVelocity.magnitude >= 7)
+            {
+                CarBody.linearVelocity = CarBody.linearVelocity * offroadVelocityMultiplier;
+            }
         }
 
         VelocityLastFrame = carBody.linearVelocity.magnitude;
