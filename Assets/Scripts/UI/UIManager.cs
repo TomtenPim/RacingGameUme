@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     public Button RestartPauseButton;
     public Button MainMenuPauseButton;
     public TextMeshProUGUI LapText;
+    public TextMeshProUGUI CountdownText;
     [Range(0f, 5f)]
     public float LapTextFadeOutTime = 1f;
 
@@ -81,6 +82,35 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void StartCountdown(int seconds)
+    {
+        StartCoroutine(CountdownTextEaseIn(seconds));
+
+    }
+
+    IEnumerator CountdownTextEaseIn(int seconds)
+    {
+        float t = LapTextFadeOutTime / 100;
+        while(seconds > 0)
+        {
+            CountdownText.text = seconds.ToString() + "!";
+            for (float i = 0; i < 1; i += 0.01f)
+            {
+                float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
+                CountdownText.color = new Color(CountdownText.color.r, CountdownText.color.g, CountdownText.color.b, alpha);
+                yield return new WaitForSeconds(t);
+            }
+            seconds--;
+        }
+        CountdownText.text = "GO!";
+        for (float i = 0; i < 1; i += 0.01f)
+        {
+            float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
+            CountdownText.color = new Color(CountdownText.color.r, CountdownText.color.g, CountdownText.color.b, alpha);
+            yield return new WaitForSeconds(t);
+        }
+    }
+
     private float easeIn(float x)
     {
         return 1 - Mathf.Cos((x * Mathf.PI) / 2);
@@ -90,6 +120,7 @@ public class UIManager : MonoBehaviour
     {
         return x == 0 ? 0 : Mathf.Pow(2, 10 * x - 10);
     }
+
 
     IEnumerator LapTextEaseIn()
     {
@@ -190,6 +221,10 @@ public class UIManager : MonoBehaviour
             if (GUILayout.Button("Lap test"))
             {
                 UIManager.UpdateLapText(5);
+            }
+            if (GUILayout.Button("Countdown test"))
+            {
+                UIManager.StartCountdown(3);
             }
         }
 
