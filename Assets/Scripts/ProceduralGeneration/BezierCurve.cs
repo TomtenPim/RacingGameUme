@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -12,7 +13,7 @@ public class BezierCurve : MonoBehaviour
     public class ControlPoint
     {
         public Vector3 Position;
-        [HideInInspector]public Vector3 ScaledPosition;
+        [HideInInspector] public Vector3 ScaledPosition;
         public Vector3 Tangent;
         [HideInInspector] public Vector3 ScaledTangent;
         public float Distance;
@@ -33,6 +34,10 @@ public class BezierCurve : MonoBehaviour
 
     public float Scale = 1.0f;
 
+    public int PointSplitAmount = 2;
+    public Vector2 RandomTangentXRange = new Vector2(-4.0f, 4.0f);
+    public Vector2 RandomTangentZRange = new Vector2(-4.0f, 4.0f);
+
     private void Awake()
     {
         if (BezierCurve.Instance == null)
@@ -45,12 +50,11 @@ public class BezierCurve : MonoBehaviour
             Destroy(this);
         }
 
-        foreach(var point in AllPoints)
+        foreach (var point in AllPoints)
         {
             point.ScaledPosition = point.Position * Scale;
             point.ScaledTangent = point.Tangent * Scale;
         }
-
     }
 
 
@@ -65,7 +69,13 @@ public class BezierCurve : MonoBehaviour
         }
     }
 
+
     private void OnValidate()
+    {
+        ValidatePoints();
+    }
+
+    public void ValidatePoints()
     {
         foreach (var point in AllPoints)
         {
@@ -94,7 +104,7 @@ public class BezierCurve : MonoBehaviour
             for (float f = 0.0f; f <= 1.0f; f += 0.025f)
             {
                 Vector3 vCurr = GetPosition(A, B, f);
-                if(Vector3.Distance(inLocation, vCurr) < Vector3.Distance(inLocation, closestPoint))
+                if (Vector3.Distance(inLocation, vCurr) < Vector3.Distance(inLocation, closestPoint))
                 {
                     closestPoint = vCurr;
                     outBlendValue = Mathf.Lerp(A.Distance, B.Distance, f);
@@ -212,5 +222,66 @@ public class BezierCurve : MonoBehaviour
         }
 
         return distance;
+    }
+
+    public void MakeRandomPointsInTriangleShape()
+    {
+        AllPoints.Clear();
+        List<ControlPoint> SourcePoints = new List<ControlPoint>();
+        ControlPoint p0 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, -10) };
+        ControlPoint p1 = new ControlPoint { Position = new Vector3(200, 0, 100), Tangent = new Vector3(0, 0, 10) };
+        ControlPoint p2 = new ControlPoint { Position = new Vector3(0, 0, 200), Tangent = new Vector3(0, 0, -10) };
+        ControlPoint p3 = new ControlPoint { Position = new Vector3(0, 0, 10), Tangent = new Vector3(10, 0, 0) };
+        ControlPoint p4 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
+
+        ControlPoint EndPoint = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
+
+        SourcePoints.AddRange(new ControlPoint[] { p0, p1, p2, p3, p4 });
+
+
+
+        List<ControlPoint> NewPoints = new List<ControlPoint>();
+        float temp = 1.0f;
+
+        temp = temp / PointSplitAmount;
+
+
+        for (int i = 0; i < SourcePoints.Count - 2; i++)
+        {
+
+            float currentT = temp;
+            AllPoints.Add(SourcePoints[i]);
+            for (int j = 0; j < PointSplitAmount - 1; j++)
+            {
+                Debug.Log("Creating points between " + i + " and " + (i + 1) + ": " + currentT.ToString("0.00") + " " + PointSplitAmount);
+
+
+                Vector3 newPosition = Vector3.Lerp(SourcePoints[i].Position, SourcePoints[i + 1].Position, currentT);
+
+                newPosition = newPosition * Random.Range(0.8f, 1.2f);
+
+                Vector3 newTangent = new Vector3(
+                    SourcePoints[i].Tangent.x + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
+                    0,
+                    SourcePoints[i].Tangent.z + Random.Range(RandomTangentZRange.x, RandomTangentZRange.y));
+
+                Debug.Log("New Position: " + newPosition);
+
+
+
+                ControlPoint tempPoint = new ControlPoint { Position = newPosition, Tangent = newTangent };
+
+                NewPoints.Add(tempPoint);
+
+                currentT += temp;
+            }
+
+            AllPoints.AddRange(NewPoints);
+            NewPoints.Clear();
+            AllPoints.Add(SourcePoints[i + 1]);
+        }
+        AllPoints[AllPoints.Count - 1].Tangent = new Vector3(0, 0, 0);
+        AllPoints.Add(EndPoint);
+
     }
 }

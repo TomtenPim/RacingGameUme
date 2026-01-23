@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Hierarchy;
 
 [RequireComponent(typeof(BezierCurve))]
 public class TrackMeshGeneration : ProceduralMesh
@@ -10,15 +11,23 @@ public class TrackMeshGeneration : ProceduralMesh
 
     [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackWidth = 2.0f;
-    
+
     [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackHeight = 0.1f;
+
+    private float Scale = 1;
+
+    private void OnValidate()
+    {
+        var bezierCurve = GetComponent<BezierCurve>();
+        Scale = trackSubdivisionSpacing * bezierCurve.Scale;
+    }
 
     protected override Mesh CreateMesh()
     {
         Mesh mesh = new Mesh();
         MeshCollider collider = GetComponent<MeshCollider>();
-        
+
         mesh.hideFlags = HideFlags.DontSave;
         mesh.name = "Track";
 
@@ -45,7 +54,7 @@ public class TrackMeshGeneration : ProceduralMesh
     {
         BezierCurve bezierCurve = GetComponent<BezierCurve>();
 
-        for (float t = 0; t <= bezierCurve.TotalDistance; t += trackSubdivisionSpacing)
+        for (float t = 0; t <= bezierCurve.TotalDistance; t += (Scale))
         {
             Pose pose = bezierCurve.GetPose(t);
             AddLoops(pose, inVertices, inTriangles);

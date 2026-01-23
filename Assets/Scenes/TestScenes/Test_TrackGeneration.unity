@@ -374,17 +374,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
+    - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99250764
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.12218326
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000029421654
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0000000052400564
+      objectReference: {fileID: 0}
     - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -288.03925
+      value: 5.99
       objectReference: {fileID: 0}
     - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.1
+      value: 3.23
       objectReference: {fileID: 0}
     - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.30493066
+      value: 6.52
       objectReference: {fileID: 0}
     - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalRotation.w
@@ -432,6 +448,7 @@ GameObject:
   - component: {fileID: 1285856298}
   - component: {fileID: 1285856297}
   - component: {fileID: 1285856296}
+  - component: {fileID: 1285856301}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -535,6 +552,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1285856301
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285856295}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1460512651
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +587,7 @@ GameObject:
   - component: {fileID: 1460512654}
   - component: {fileID: 1460512653}
   - component: {fileID: 1460512652}
+  - component: {fileID: 1460512657}
   m_Layer: 0
   m_Name: HardCube
   m_TagString: Untagged
@@ -647,12 +687,34 @@ Transform:
   m_GameObject: {fileID: 1460512651}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.76, y: -4.51, z: 18.07}
+  m_LocalPosition: {x: 9.3, y: -1.95, z: 15.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1460512657
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460512651}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1497390622
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,9 +875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea51b11f9f640ed4581f1fe3b332e7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrackMeshGeneration
-  trackSubdivisionSpacing: 4.75
-  trackWidth: 57
-  trackHeight: 0.1
+  trackSubdivisionSpacing: 1.86
+  trackWidth: 50
+  trackHeight: 2
 --- !u!23 &2009850865
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -886,33 +948,99 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BezierCurveTest
   AllPoints:
-  - Position: {x: -3.57, y: 0, z: 0}
-    ScaledPosition: {x: -226.0881, y: 0, z: 0}
-    Tangent: {x: 5.1, y: 0, z: -0.61}
-    ScaledTangent: {x: 322.983, y: 0, z: -38.6313}
+  - Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
     Distance: 0
-  - Position: {x: 32.9, y: 0, z: -10}
-    ScaledPosition: {x: 2083.5571, y: 0, z: -633.30005}
-    Tangent: {x: -8.11, y: 0, z: -7.85}
-    ScaledTangent: {x: -513.6063, y: 0, z: -497.1405}
-    Distance: 2645.5132
-  - Position: {x: -3.99, y: 0, z: -13.8}
-    ScaledPosition: {x: -252.6867, y: 0, z: -873.95404}
-    Tangent: {x: -4.08, y: 0, z: 1.33}
-    ScaledTangent: {x: -258.3864, y: 0, z: 84.228905}
-    Distance: 5059.8037
-  - Position: {x: -3.69, y: 0, z: -5.95}
-    ScaledPosition: {x: -233.68771, y: 0, z: -376.8135}
-    Tangent: {x: -0.73, y: 0, z: 1.09}
-    ScaledTangent: {x: -46.230904, y: 0, z: 69.0297}
-    Distance: 5630.2065
-  - Position: {x: -3.57, y: 0, z: 0}
-    ScaledPosition: {x: -226.0881, y: 0, z: 0}
-    Tangent: {x: 5.1, y: 0, z: -0.61}
-    ScaledTangent: {x: 322.983, y: 0, z: -38.6313}
-    Distance: 6169.9277
+  - Position: {x: 0.78125, y: 0, z: 0.1953125}
+    ScaledPosition: {x: 39.0625, y: 0, z: 9.765625}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 2886.286
+  - Position: {x: 1.5625, y: 0, z: 0.390625}
+    ScaledPosition: {x: 78.125, y: 0, z: 19.53125}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 5772.572
+  - Position: {x: 2.34375, y: 0, z: 0.5859375}
+    ScaledPosition: {x: 117.1875, y: 0, z: 29.296875}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 8658.857
+  - Position: {x: 3.125, y: 0, z: 0.78125}
+    ScaledPosition: {x: 156.25, y: 0, z: 39.0625}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 11545.144
+  - Position: {x: 200, y: 0, z: 50}
+    ScaledPosition: {x: 10000, y: 0, z: 2500}
+    Tangent: {x: 0, y: 0, z: 50}
+    ScaledTangent: {x: 0, y: 0, z: 2500}
+    Distance: 25967.48
+  - Position: {x: 200, y: 0, z: 50}
+    ScaledPosition: {x: 10000, y: 0, z: 2500}
+    Tangent: {x: 0, y: 0, z: 50}
+    ScaledTangent: {x: 0, y: 0, z: 2500}
+    Distance: 25967.48
+  - Position: {x: 199.21875, y: 0, z: 50.195312}
+    ScaledPosition: {x: 9960.9375, y: 0, z: 2509.7656}
+    Tangent: {x: 0, y: 0, z: 50}
+    ScaledTangent: {x: 0, y: 0, z: 2500}
+    Distance: 28842.377
+  - Position: {x: 198.4375, y: 0, z: 50.390625}
+    ScaledPosition: {x: 9921.875, y: 0, z: 2519.5312}
+    Tangent: {x: 0, y: 0, z: 50}
+    ScaledTangent: {x: 0, y: 0, z: 2500}
+    Distance: 31717.273
+  - Position: {x: 197.65625, y: 0, z: 50.585938}
+    ScaledPosition: {x: 9882.8125, y: 0, z: 2529.2969}
+    Tangent: {x: 0, y: 0, z: 50}
+    ScaledTangent: {x: 0, y: 0, z: 2500}
+    Distance: 34592.17
+  - Position: {x: 196.875, y: 0, z: 50.78125}
+    ScaledPosition: {x: 9843.75, y: 0, z: 2539.0625}
+    Tangent: {x: 0, y: 0, z: 50}
+    ScaledTangent: {x: 0, y: 0, z: 2500}
+    Distance: 37467.07
+  - Position: {x: 0, y: 0, z: 100}
+    ScaledPosition: {x: 0, y: 0, z: 5000}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 51889.406
+  - Position: {x: 0, y: 0, z: 100}
+    ScaledPosition: {x: 0, y: 0, z: 5000}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 51889.406
+  - Position: {x: 0, y: 0, z: 99.609375}
+    ScaledPosition: {x: 0, y: 0, z: 4980.4688}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 54758
+  - Position: {x: 0, y: 0, z: 99.21875}
+    ScaledPosition: {x: 0, y: 0, z: 4960.9375}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 57626.594
+  - Position: {x: 0, y: 0, z: 98.828125}
+    ScaledPosition: {x: 0, y: 0, z: 4941.4062}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 60495.188
+  - Position: {x: 0, y: 0, z: 98.4375}
+    ScaledPosition: {x: 0, y: 0, z: 4921.875}
+    Tangent: {x: 0, y: 0, z: -50}
+    ScaledTangent: {x: 0, y: 0, z: -2500}
+    Distance: 63363.78
+  - Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
+    Tangent: {x: 0, y: 0, z: 0}
+    ScaledTangent: {x: 0, y: 0, z: 0}
+    Distance: 68285.66
   DebugPosition: {x: 5.2496266, y: 0, z: 2.386545}
-  Scale: 63.33
+  Scale: 50
+  PointSplitAmount: 4
 --- !u!4 &2009850868
 Transform:
   m_ObjectHideFlags: 0
