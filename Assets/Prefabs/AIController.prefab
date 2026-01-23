@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1672077862011147027}
-  - component: {fileID: 6068599756848877896}
+  - component: {fileID: 2224054367707477867}
   m_Layer: 0
   m_Name: AIController
   m_TagString: Vehicle
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 4449534595209620274}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6068599756848877896
+--- !u!114 &2224054367707477867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,9 +42,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8306336353578566474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5f26f6d9e08b9f4db1cbf6c66586b13, type: 3}
+  m_Script: {fileID: 11500000, guid: dbf00216d9ed2d640af72620ab3e4503, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIController
+  m_EditorClassIdentifier: Assembly-CSharp::AIControllerV3
+  averageSpeed: 50
+  minLookAhead: 10
+  maxLookAhead: 20
+  stuckSpeedThreshold: 2
+  stuckTime: 1
+  recoveryExitDot: 0.7
+  laneIndex: 0
+  laneWidth: 3
 --- !u!1001 &4798025550874216923
 PrefabInstance:
   m_ObjectHideFlags: 0

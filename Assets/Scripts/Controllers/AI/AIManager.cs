@@ -1,9 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
     void Start()
     {
+        StartCoroutine(DelayedStart());
+
+    }
+
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(1f);
+
         AIControllerV3[] aiCars = FindObjectsOfType<AIControllerV3>();
         int count = aiCars.Length;
 
@@ -18,9 +27,9 @@ public class AIManager : MonoBehaviour
                 laneIndex += 1;
 
             }
-
             aiCars[i].laneIndex = laneIndex;
-
         }
+
     }
+ 
 }

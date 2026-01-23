@@ -66,7 +66,7 @@ public class AIControllerV3 : CarController
         float forwardDot = Vector3.Dot(Car.transform.forward, toTarget);
 
         float throttle = Mathf.Clamp01(forwardDot);
-        Car.Accelerate(throttle);
+        Car.Accelerate(throttle*1.5f);
     }
 
     private void HandleStuck(float currentSpeed)
