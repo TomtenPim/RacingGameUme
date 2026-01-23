@@ -108,7 +108,7 @@ public class UIManager : MonoBehaviour
         float t = LapTextFadeOutTime / 100;
         while (seconds > 0)
         {
-            CountdownText.text = seconds.ToString() + "!";
+            CountdownText.text = seconds.ToString();
             for (float i = 0; i < 1; i += 0.01f)
             {
                 float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
             seconds--;
         }
         RaceManager.Instance.StartRace();
-        CountdownText.text = "GO!";
+        CountdownText.text = "GO";
         for (float i = 0; i < 1; i += 0.01f)
         {
             float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
