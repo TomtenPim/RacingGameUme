@@ -35,9 +35,13 @@ public class UIManager : MonoBehaviour
     public Button ResumePauseButton;
     public Button RestartPauseButton;
     public Button MainMenuPauseButton;
+    public TextMeshProUGUI LapsText;
     public TextMeshProUGUI LapText;
+    public TextMeshProUGUI CountdownText;
     [Range(0f, 5f)]
     public float LapTextFadeOutTime = 1f;
+
+    public bool StartTimerDone = false;
 
     private void Awake()
     {
@@ -59,26 +63,68 @@ public class UIManager : MonoBehaviour
             Debug.LogError("RaceManager, is not in scene or not instanced, functions may fail");
         }
 
+        ClearLeaderBoard();
+
         PlayAgainButton.onClick.AddListener(PlayAgain);
         MainMenuButton.onClick.AddListener(MainMenu);
         ResumePauseButton.onClick.AddListener(Pause);
         RestartPauseButton.onClick.AddListener(PlayAgain);
         MainMenuPauseButton.onClick.AddListener(MainMenu);
         EndScreen.gameObject.SetActive(false);
+
+        int maxLaps = RaceManager.Instance.GetRaceData.MaxLaps;
+
+        LapsText.text = "Lap " + 1 + "/" + maxLaps;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+
 
     public void UpdateLapText(int lap)
     {
+        int maxLaps = RaceManager.Instance.GetRaceData.MaxLaps;
+
+        LapsText.text = "Lap " + lap + "/" + maxLaps;
+
         LapText.text = "Lap: " + lap;
 
         StartCoroutine(LapTextEaseIn());
 
+    }
+
+    public void StartCountdown(int seconds)
+    {
+        StartCoroutine(CountdownTextEaseIn(seconds));
+
+    }
+
+    IEnumerator CountdownTextEaseIn(int seconds)
+    {
+        float t = LapTextFadeOutTime / 100;
+        while (seconds > 0)
+        {
+            CountdownText.text = seconds.ToString() + "!";
+            for (float i = 0; i < 1; i += 0.01f)
+            {
+                float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
+                CountdownText.color = new Color(CountdownText.color.r, CountdownText.color.g, CountdownText.color.b, alpha);
+                yield return new WaitForSeconds(t);
+            }
+            seconds--;
+        }
+        RaceManager.Instance.StartRace();
+        CountdownText.text = "GO!";
+        for (float i = 0; i < 1; i += 0.01f)
+        {
+            float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
+            CountdownText.color = new Color(CountdownText.color.r, CountdownText.color.g, CountdownText.color.b, alpha);
+            yield return new WaitForSeconds(t);
+        }
     }
 
     private float easeIn(float x)
@@ -91,10 +137,11 @@ public class UIManager : MonoBehaviour
         return x == 0 ? 0 : Mathf.Pow(2, 10 * x - 10);
     }
 
+
     IEnumerator LapTextEaseIn()
     {
         float t = LapTextFadeOutTime / 100;
-        for(float i = 0; i < 1; i+=0.01f)
+        for (float i = 0; i < 1; i += 0.01f)
         {
             float alpha = Mathf.Lerp(1, 0, easeOutExpo(i));
             LapText.color = new Color(LapText.color.r, LapText.color.g, LapText.color.b, alpha);
@@ -110,7 +157,7 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
-        if(Time.timeScale == 0)
+        if (Time.timeScale == 0)
         {
             Time.timeScale = 1;
             PauseScreen.gameObject.SetActive(false);
@@ -156,7 +203,7 @@ public class UIManager : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void PlayAgain()
@@ -190,6 +237,10 @@ public class UIManager : MonoBehaviour
             if (GUILayout.Button("Lap test"))
             {
                 UIManager.UpdateLapText(5);
+            }
+            if (GUILayout.Button("Countdown test"))
+            {
+                UIManager.StartCountdown(3);
             }
         }
 
