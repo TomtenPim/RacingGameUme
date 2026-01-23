@@ -8,10 +8,13 @@ public class AIControllerV3 : CarController
     public float stuckSpeedThreshold = 2f;
     public float stuckTime = 1f;
     public float recoveryExitDot = 0.7f;
+    public int laneIndex = 0;
+    public float laneWidth = 3f;
 
     private Pose toDriveTo;
     private float stuckTimer;
     private bool isRecovering;
+
 
     // Update is called once per frame
     protected override void Update()
@@ -34,9 +37,10 @@ public class AIControllerV3 : CarController
         float lookAheadDistance = Mathf.Lerp(minLookAhead, maxLookAhead, speed);
         float targetDisctance = distanceOnTrack + lookAheadDistance;
 
+        Pose basePose = BezierCurve.Instance.GetPose(targetDisctance);
+        Vector3 offset = basePose.right * laneIndex * laneWidth;
 
-
-        toDriveTo = BezierCurve.Instance.GetPose(targetDisctance);
+        toDriveTo = new Pose(basePose.position + offset, basePose.rotation);
 
         Vector3 toTarget = (toDriveTo.position - Car.transform.position).normalized;
 
@@ -61,7 +65,7 @@ public class AIControllerV3 : CarController
     {
         float forwardDot = Vector3.Dot(Car.transform.forward, toTarget);
 
-        float throttle = Mathf.Pow(Mathf.Clamp01(forwardDot), 1.5f);
+        float throttle = Mathf.Clamp01(forwardDot);
         Car.Accelerate(throttle);
     }
 
