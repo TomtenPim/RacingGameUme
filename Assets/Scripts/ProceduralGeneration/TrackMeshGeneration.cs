@@ -1,7 +1,8 @@
 using NUnit.Framework;
-using UnityEngine;
 using System.Collections.Generic;
 using Unity.Hierarchy;
+using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 [RequireComponent(typeof(BezierCurve))]
 public class TrackMeshGeneration : ProceduralMesh
@@ -54,7 +55,9 @@ public class TrackMeshGeneration : ProceduralMesh
     {
         BezierCurve bezierCurve = GetComponent<BezierCurve>();
 
-        for (float t = 0; t <= bezierCurve.TotalDistance; t += (Scale))
+        Debug.Log(bezierCurve.TotalDistance);
+
+        for (float t = 0; t < bezierCurve.TotalDistance; t += (Scale))
         {
             Pose pose = bezierCurve.GetPose(t);
             AddLoops(pose, inVertices, inTriangles);
