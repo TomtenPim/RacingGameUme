@@ -132,8 +132,9 @@ GameObject:
   - component: {fileID: 722934543}
   - component: {fileID: 722934542}
   - component: {fileID: 722934541}
+  - component: {fileID: 722934544}
   m_Layer: 0
-  m_Name: Bezier Cureve
+  m_Name: Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,31 +155,66 @@ MonoBehaviour:
   AllPoints:
   - Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
-    Tangent: {x: -15, y: 0, z: 10}
-    ScaledTangent: {x: -15, y: 0, z: 10}
+    Tangent: {x: 0, y: 0, z: -10}
+    ScaledTangent: {x: 0, y: 0, z: -30}
     Distance: 0
-  - Position: {x: 1, y: 0, z: 30}
-    ScaledPosition: {x: 1, y: 0, z: 30}
-    Tangent: {x: 10, y: 0, z: 0}
-    ScaledTangent: {x: 10, y: 0, z: 0}
-    Distance: 38.166496
-  - Position: {x: 40, y: 0, z: 30}
-    ScaledPosition: {x: 40, y: 0, z: 30}
-    Tangent: {x: 15, y: 0, z: 0}
-    ScaledTangent: {x: 15, y: 0, z: 0}
-    Distance: 77.1665
-  - Position: {x: 40, y: 0, z: 0}
-    ScaledPosition: {x: 40, y: 0, z: 0}
-    Tangent: {x: -15, y: 0, z: 0}
-    ScaledTangent: {x: -15, y: 0, z: 0}
-    Distance: 118.96077
-  - Position: {x: 0, y: 0, z: 0}
-    ScaledPosition: {x: 0, y: 0, z: 0}
+  - Position: {x: 114.774994, y: 0, z: 57.387497}
+    ScaledPosition: {x: 344.32498, y: 0, z: 172.16249}
+    Tangent: {x: -3.3002434, y: 0, z: -8.332343}
+    ScaledTangent: {x: -9.90073, y: 0, z: -24.997028}
+    Distance: 390.67465
+  - Position: {x: 200, y: 0, z: 100}
+    ScaledPosition: {x: 600, y: 0, z: 300}
+    Tangent: {x: 0, y: 0, z: 10}
+    ScaledTangent: {x: 0, y: 0, z: 30}
+    Distance: 684.4697
+  - Position: {x: 200, y: 0, z: 100}
+    ScaledPosition: {x: 600, y: 0, z: 300}
+    Tangent: {x: 0, y: 0, z: 10}
+    ScaledTangent: {x: 0, y: 0, z: 30}
+    Distance: 719.0298
+  - Position: {x: 98.37543, y: 0, z: 147.56314}
+    ScaledPosition: {x: 295.12628, y: 0, z: 442.68942}
+    Tangent: {x: -2.6504345, y: 0, z: 9.224489}
+    ScaledTangent: {x: -7.9513035, y: 0, z: 27.673468}
+    Distance: 1058.8618
+  - Position: {x: 0, y: 0, z: 200}
+    ScaledPosition: {x: 0, y: 0, z: 600}
+    Tangent: {x: 0, y: 0, z: -10}
+    ScaledTangent: {x: 0, y: 0, z: -30}
+    Distance: 1400.3176
+  - Position: {x: 0, y: 0, z: 200}
+    ScaledPosition: {x: 0, y: 0, z: 600}
+    Tangent: {x: 0, y: 0, z: -10}
+    ScaledTangent: {x: 0, y: 0, z: -30}
+    Distance: 1434.8777
+  - Position: {x: 0, y: 0, z: 105.42188}
+    ScaledPosition: {x: 0, y: 0, z: 316.26566}
+    Tangent: {x: -0.06954718, y: 0, z: -10.070625}
+    ScaledTangent: {x: -0.20864153, y: 0, z: -30.211876}
+    Distance: 1718.6122
+  - Position: {x: 0, y: 0, z: 10}
+    ScaledPosition: {x: 0, y: 0, z: 30}
     Tangent: {x: 0, y: 0, z: 0}
     ScaledTangent: {x: 0, y: 0, z: 0}
-    Distance: 158.96077
-  DebugPosition: {x: 42.450127, y: 0, z: 33.56031}
-  Scale: 1
+    Distance: 2004.8779
+  - Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
+    Tangent: {x: 0, y: 0, z: -1}
+    ScaledTangent: {x: 0, y: 0, z: -3}
+    Distance: 2034.8779
+  closedPoint:
+    Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
+    Tangent: {x: 0, y: 0, z: -10}
+    ScaledTangent: {x: 0, y: 0, z: 0}
+    Distance: 2037.5397
+  DebugPosition: {x: -4.547226, y: 0, z: -105.4213}
+  IsClosedLoop: 1
+  Scale: 3
+  PointSplitAmount: 10
+  RandomTangentXRange: {x: -4, y: 4}
+  RandomTangentZRange: {x: -4, y: 4}
 --- !u!4 &722934540
 Transform:
   m_ObjectHideFlags: 0
@@ -206,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea51b11f9f640ed4581f1fe3b332e7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrackMeshGeneration
-  trackSubdivisionSpacing: 2.74
-  trackWidth: 5
+  trackSubdivisionSpacing: 5
+  trackWidth: 15
   trackHeight: 0.1
 --- !u!23 &722934542
 MeshRenderer:
@@ -266,6 +302,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722934538}
   m_Mesh: {fileID: 0}
+--- !u!64 &722934544
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722934538}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &1418933901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -274,10 +332,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 261119436147691849, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3464072516890584513, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.90641
@@ -318,21 +372,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5665707859182550741, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6707597719863482222, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8320695245719221370, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
       propertyPath: m_Name
       value: UIManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336547324732992238, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -466,7 +508,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &2056437531
+--- !u!1 &1969327605
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -474,24 +516,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2056437535}
-  - component: {fileID: 2056437534}
-  - component: {fileID: 2056437533}
-  - component: {fileID: 2056437532}
-  m_Layer: 0
-  m_Name: plane
+  - component: {fileID: 1969327609}
+  - component: {fileID: 1969327608}
+  - component: {fileID: 1969327607}
+  - component: {fileID: 1969327606}
+  m_Layer: 7
+  m_Name: Offroad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &2056437532
-MeshCollider:
+--- !u!65 &1969327606
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056437531}
+  m_GameObject: {fileID: 1969327605}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -503,17 +545,16 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2056437533
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1969327607
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056437531}
+  m_GameObject: {fileID: 1969327605}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -532,7 +573,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2e53879c598b6814a8be37bbb77623c8, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -556,26 +597,26 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2056437534
+--- !u!33 &1969327608
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056437531}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2056437535
+  m_GameObject: {fileID: 1969327605}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1969327609
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056437531}
+  m_GameObject: {fileID: 1969327605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 1000, z: 1000}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 279, y: 0, z: 298}
+  m_LocalScale: {x: 1500, y: 0.19, z: 1500}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -630,26 +671,6 @@ PrefabInstance:
     - target: {fileID: 3883908224704888793, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
-      propertyPath: CheckeredLine
-      value: 
-      objectReference: {fileID: 2791671332147773662, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
-      propertyPath: HalfPointLine
-      value: 
-      objectReference: {fileID: 3518306093586770842, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
-      propertyPath: carSpawnOffset.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
-      propertyPath: carSpawnOffset.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
-      propertyPath: raceData.amountOfCarsInRace
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -725,10 +746,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckeredLine
       objectReference: {fileID: 0}
-    - target: {fileID: 2791671332147773662, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.1
@@ -780,8 +797,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1953666733}
   - {fileID: 8287043139628378650}
-  - {fileID: 2056437535}
   - {fileID: 722934540}
   - {fileID: 3513567384502948937}
   - {fileID: 2100360091}
   - {fileID: 1418933901}
+  - {fileID: 1969327609}

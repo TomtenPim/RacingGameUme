@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RaceManager : MonoBehaviour
@@ -91,6 +92,16 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private GameObject HalfPointLine;
     [SerializeField] float carSpawnOffset = 4;
     [SerializeField] float playerRaceSpawnPosition = 5;
+    string[] randomNames =
+    {
+        "Lloyd Harris", "Cornell Rivera", "Stacie Moon",
+        "Penelope York", "Millard Juarez", "Alejandra Bonilla",
+        "Jennie Howe", "Milton Gordon", "Alissa Avila",
+        "Rodrigo Wilcox", "Jaime Vance", "Conrad Contreras",
+        "Douglass Larson", "Vincenzo Dyer", "Domingo Frank",
+        "Irving Garza", "Frankie Mccarty", "Shannon Krause",
+        "Emmanuel Beard", "Keith Johnston", "Norris Frederick",
+    };
 
 
     private bool isRaceCompleted = false;
@@ -208,7 +219,7 @@ public class RaceManager : MonoBehaviour
 
     private IEnumerator RaceUpdate()
     {
-
+        int updatePosition = 0;
         while (!isRaceCompleted)
         {
             raceData.RaceTime += Time.deltaTime;
@@ -216,6 +227,12 @@ public class RaceManager : MonoBehaviour
 
 
             // Get all cars position on the map spline 
+
+            if (updatePosition % 60 != 0)
+            {
+                updatePosition++;
+                goto WaitForFrame;
+            }
             (CarRaceState raceState, float pointInTrack)[] positionData = new (CarRaceState raceState, float pointInTrack)[carsInRace.Count];
             int index = 0;
             foreach (var car in carsInRace)
@@ -253,6 +270,8 @@ public class RaceManager : MonoBehaviour
                 addedPoint.Add(bestPoint.raceState);
                 bestPoint = new(new CarRaceState(-1), -1);
             }
+
+        WaitForFrame:
             yield return new WaitForEndOfFrame();
         }
     }
@@ -325,7 +344,9 @@ public class RaceManager : MonoBehaviour
         carRaceState.CompletedRace = true;
         carRaceState.RaceState = RaceState.RaceCompleted;
 
-        UIManager.Instance.AddToLeaderBoard(carRaceState.RacePosition, "" + carRaceState.CarId, carRaceState.FinishingTime);
+        string carName = carRaceState.IsPlayer ? "The Player" : randomNames[UnityEngine.Random.Range(0, randomNames.Length)];
+
+        UIManager.Instance.AddToLeaderBoard(carRaceState.RacePosition, carName, carRaceState.FinishingTime);
 
         if (carRaceState.IsPlayer)
         {
