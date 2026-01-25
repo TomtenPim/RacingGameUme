@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.PackageManager.UI;
 using UnityEditor.TerrainTools;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 
 namespace Bezier
@@ -99,7 +100,7 @@ namespace Bezier
 
             GUILayout.Space(10);
             m_fBlend = EditorGUILayout.Slider("Blend", m_fBlend, 0.0f, 1.0f);
-            m_fDistanceAlongCurve = EditorGUILayout.Slider("Point On Curve", m_fDistanceAlongCurve, -1.0f, bc.LastPoint.Distance + 1.0f);
+            m_fDistanceAlongCurve = EditorGUILayout.Slider("Point On Curve", m_fDistanceAlongCurve, -1.0f, bc.TotalDistance + 1.0f);
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -117,6 +118,10 @@ namespace Bezier
             {
                 bc.MakeRandomPointsInTriangleShape();
                 bc.ValidatePoints();
+
+                ProceduralMesh pm = target as ProceduralMesh;
+
+                pm.UpdateMesh();
             }
         }
 
@@ -211,7 +216,22 @@ namespace Bezier
                     vLast = vCurr;
                 }
             }
-        }
+            if (bc.IsClosedLoop)
+            {
+                Handles.color = Color.magenta;
 
+                BezierCurve.ControlPoint A2 = bc.LastPoint;
+                BezierCurve.ControlPoint B2 = bc.closedPoint;
+
+                Vector3 vLast2 = A2.ScaledPosition;
+                for (float f = 0.0f; f <= 1.0f; f += 0.025f)
+                {
+                    Vector3 vCurr2 = BezierCurve.GetPosition(A2, B2, f);
+                    Handles.DrawLine(vLast2, vCurr2, 4.0f);
+                    vLast2 = vCurr2;
+                }
+            }
+        }
     }
+
 }

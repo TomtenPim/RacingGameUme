@@ -26,11 +26,16 @@ public class BezierCurve : MonoBehaviour
     public ControlPoint FirstPoint => !IsEmpty ? AllPoints[0] : null;
     public ControlPoint LastPoint => !IsEmpty ? AllPoints[AllPoints.Count - 1] : null;
 
-    public float TotalDistance => !IsEmpty ? LastPoint.Distance : 0.0f;
+    public ControlPoint closedPoint = new ControlPoint();
+
+    private float totalDistance;
+    public float TotalDistance => totalDistance;
 
     public Vector3 DebugPosition;
 
     public static BezierCurve Instance;
+
+    public bool IsClosedLoop = true;
 
     public float Scale = 1.0f;
 
@@ -55,6 +60,8 @@ public class BezierCurve : MonoBehaviour
             point.ScaledPosition = point.Position * Scale;
             point.ScaledTangent = point.Tangent * Scale;
         }
+
+        ValidatePoints();
     }
 
 
@@ -94,6 +101,7 @@ public class BezierCurve : MonoBehaviour
 
         Vector3 closestPoint = Vector3.zero;
         Pose closestPose = new Pose();
+        
 
         for (int i = 1; i < AllPoints.Count; ++i)
         {
@@ -101,7 +109,28 @@ public class BezierCurve : MonoBehaviour
             ControlPoint B = AllPoints[i];
 
             Vector3 vLast = A.ScaledPosition;
-            for (float f = 0.0f; f <= 1.0f; f += 0.025f)
+            for (float f = 0.0f; f <= 1.0f; f += 0.001f)
+            {
+                Vector3 vCurr = GetPosition(A, B, f);
+                if (Vector3.Distance(inLocation, vCurr) <= Vector3.Distance(inLocation, closestPoint))
+                {
+                    closestPoint = vCurr;
+                    outBlendValue = Mathf.Lerp(A.Distance, B.Distance, f);
+                    closestPose.position = vCurr;
+                    closestPose.rotation = Quaternion.LookRotation(GetForward(A, B, f));
+                }
+
+                vLast = vCurr;
+            }
+        }
+
+        if (IsClosedLoop && Vector3.Distance(inLocation, LastPoint.Position) >= 0)
+        {
+            ControlPoint A = LastPoint;
+            ControlPoint B = closedPoint;
+        
+            Vector3 vLast = A.ScaledPosition;
+            for (float f = 0.0f; f <= 1.0f; f += 0.001f)
             {
                 Vector3 vCurr = GetPosition(A, B, f);
                 if (Vector3.Distance(inLocation, vCurr) < Vector3.Distance(inLocation, closestPoint))
@@ -111,7 +140,7 @@ public class BezierCurve : MonoBehaviour
                     closestPose.position = vCurr;
                     closestPose.rotation = Quaternion.LookRotation(GetForward(A, B, f));
                 }
-
+        
                 vLast = vCurr;
             }
         }
@@ -161,6 +190,17 @@ public class BezierCurve : MonoBehaviour
             }
         }
 
+        if(IsClosedLoop && inDistanceAlongCurve <= totalDistance)
+        {
+            float blend = Mathf.InverseLerp(LastPoint.Distance, totalDistance, inDistanceAlongCurve);
+
+            return new Pose
+            {
+                position = GetPosition(LastPoint, closedPoint, blend),
+                rotation = Quaternion.LookRotation(GetForward(LastPoint, closedPoint, blend))
+            };
+        }
+
         throw new System.Exception("Should not reach here when getting position on Bezier curve.");
     }
 
@@ -197,6 +237,7 @@ public class BezierCurve : MonoBehaviour
 
     public void UpdateDistances()
     {
+        totalDistance = 0.0f;
         if (IsEmpty) return;
 
         AllPoints[0].Distance = 0.0f;
@@ -206,6 +247,15 @@ public class BezierCurve : MonoBehaviour
             ControlPoint A = AllPoints[i - 1];
             ControlPoint B = AllPoints[i];
             B.Distance = A.Distance + CalculateDistance(A, B);
+        }
+        totalDistance += LastPoint.Distance;
+
+        if (IsClosedLoop)
+        {
+            closedPoint.Position = FirstPoint.Position;
+            closedPoint.Tangent = FirstPoint.Tangent;
+            totalDistance += CalculateDistance(LastPoint, closedPoint);
+            closedPoint.Distance = totalDistance;
         }
     }
 
@@ -234,7 +284,7 @@ public class BezierCurve : MonoBehaviour
         ControlPoint p3 = new ControlPoint { Position = new Vector3(0, 0, 10), Tangent = new Vector3(10, 0, 0) };
         ControlPoint p4 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
 
-        ControlPoint EndPoint = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
+        ControlPoint EndPoint = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, -1) };
 
         SourcePoints.AddRange(new ControlPoint[] { p0, p1, p2, p3, p4 });
 
