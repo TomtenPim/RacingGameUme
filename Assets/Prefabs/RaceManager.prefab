@@ -46,9 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RaceManager
   raceData:
     maxLaps: 3
-    amountOfCarsInRace: 4
+    amountOfCarsInRace: 10
   aiCarPrefab: {fileID: 8306336353578566474, guid: 23d400fc9576ac843927e619b2011b57, type: 3}
   playerPrefab: {fileID: 5829640501197963625, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
   CheckeredLine: {fileID: 2791671332147773662, guid: 167543e51d9c2264980da80117f167a4, type: 3}
   HalfPointLine: {fileID: 3518306093586770842, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-  carSpawnOffset: {x: 3, y: 0, z: 2}
+  carSpawnOffset: 4
+  playerRaceSpawnPosition: 5
