@@ -89,7 +89,9 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject CheckeredLine;
     [SerializeField] private GameObject HalfPointLine;
-    [SerializeField] Vector3 carSpawnOffset = new Vector3(4, 0, 3);
+    [SerializeField] float carSpawnOffset = 4;
+    [SerializeField] float playerRaceSpawnPosition = 5;
+
 
     private bool isRaceCompleted = false;
 
@@ -120,18 +122,18 @@ public class RaceManager : MonoBehaviour
     {
         // Spawn cars
         Pose startCarSpawnPose = BezierCurve.Instance.GetPose(0);
-        Pose endCarSpawnPose = BezierCurve.Instance.GetPose(BezierCurve.Instance.TotalDistance - 1);
-        Debug.LogWarning(startCarSpawnPose.position - startCarSpawnPose.forward);
 
+        Vector3 backDirection = startCarSpawnPose.position - (startCarSpawnPose.position - (startCarSpawnPose.forward * carSpawnOffset));
+        Vector3 sideDirection = startCarSpawnPose.position - (startCarSpawnPose.position - (startCarSpawnPose.right * carSpawnOffset));
 
         int spawnSide = 1;
         for (int i = 0; i < raceData.AmountOfCarsInRace; i++)
         {
             GameObject car = null;
-            Vector3 spawnPoint = new Vector3(startCarSpawnPose.position.x + (i * carSpawnOffset.x), 1, startCarSpawnPose.position.z + (spawnSide * carSpawnOffset.z));
+            Vector3 spawnPoint = new Vector3(startCarSpawnPose.position.x, 1, startCarSpawnPose.position.z) - ((backDirection * i) - (sideDirection * spawnSide));
             spawnSide *= -1;
 
-            if (i == 0)
+            if (i == playerRaceSpawnPosition)
             {
                 car = Instantiate(playerPrefab, Vector3.zero, startCarSpawnPose.rotation);
             }

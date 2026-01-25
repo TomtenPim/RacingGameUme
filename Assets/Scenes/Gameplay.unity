@@ -415,6 +415,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
+      propertyPath: carSpawnOffset.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
+      propertyPath: carSpawnOffset.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907637750823271267, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
       propertyPath: raceData.amountOfCarsInRace
       value: 10
       objectReference: {fileID: 0}
