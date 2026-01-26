@@ -376,19 +376,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99250764
+      value: 0.9965927
       objectReference: {fileID: 0}
     - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12218326
+      value: 0.08248053
       objectReference: {fileID: 0}
     - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029421654
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7546130784805867102, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000052400564
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
       propertyPath: m_LocalPosition.x
@@ -950,91 +950,96 @@ MonoBehaviour:
   AllPoints:
   - Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
-    Tangent: {x: 0, y: 0, z: -10}
-    ScaledTangent: {x: 0, y: 0, z: -84.899994}
+    Tangent: {x: 15, y: 0, z: 0}
+    ScaledTangent: {x: 127.35, y: 0, z: 0}
     Distance: 0
-  - Position: {x: 55.214138, y: 0, z: 27.607069}
-    ScaledPosition: {x: 468.768, y: 0, z: 234.384}
-    Tangent: {x: 15.368157, y: 0, z: -10.933405}
-    ScaledTangent: {x: 130.47565, y: 0, z: -92.82461}
-    Distance: 559.8781
-  - Position: {x: 84.28946, y: 0, z: 42.14473}
-    ScaledPosition: {x: 715.6175, y: 0, z: 357.80875}
-    Tangent: {x: 20.30005, y: 0, z: -7.7056413}
-    ScaledTangent: {x: 172.34743, y: 0, z: -65.42089}
-    Distance: 888.6841
-  - Position: {x: 143.25276, y: 0, z: 71.62638}
-    ScaledPosition: {x: 1216.216, y: 0, z: 608.108}
-    Tangent: {x: -8.276007, y: 0, z: -7.098446}
-    ScaledTangent: {x: -70.2633, y: 0, z: -60.265804}
-    Distance: 1485.9796
+  - Position: {x: 53.068596, y: 0, z: 26.534298}
+    ScaledPosition: {x: 450.55237, y: 0, z: 225.27618}
+    Tangent: {x: -5.1741886, y: 0, z: 0}
+    ScaledTangent: {x: -43.92886, y: 0, z: 0}
+    Distance: 516.53815
+  - Position: {x: 107.09603, y: 0, z: 53.548016}
+    ScaledPosition: {x: 909.2453, y: 0, z: 454.62265}
+    Tangent: {x: 10.632879, y: 0, z: 0}
+    ScaledTangent: {x: 90.27314, y: 0, z: 0}
+    Distance: 1039.2251
+  - Position: {x: 143.36272, y: 0, z: 71.68136}
+    ScaledPosition: {x: 1217.1494, y: 0, z: 608.5747}
+    Tangent: {x: -8.26048, y: 0, z: 0}
+    ScaledTangent: {x: -70.13147, y: 0, z: 0}
+    Distance: 1409.6216
   - Position: {x: 200, y: 0, z: 100}
     ScaledPosition: {x: 1698, y: 0, z: 849}
-    Tangent: {x: 0, y: 0, z: 10}
-    ScaledTangent: {x: 0, y: 0, z: 84.899994}
-    Distance: 2056.7861
+    Tangent: {x: -5, y: 0, z: 0}
+    ScaledTangent: {x: -42.449997, y: 0, z: 0}
+    Distance: 2011.089
   - Position: {x: 200, y: 0, z: 100}
     ScaledPosition: {x: 1698, y: 0, z: 849}
-    Tangent: {x: 0, y: 0, z: 10}
-    ScaledTangent: {x: 0, y: 0, z: 84.899994}
-    Distance: 2154.5908
-  - Position: {x: 130.9888, y: 0, z: 109.15733}
-    ScaledPosition: {x: 1112.0948, y: 0, z: 926.7457}
-    Tangent: {x: -1.6657677, y: 0, z: 11.885995}
-    ScaledTangent: {x: -14.142367, y: 0, z: 100.912094}
-    Distance: 2768.168
-  - Position: {x: 116.80152, y: 0, z: 175.20229}
-    ScaledPosition: {x: 991.6449, y: 0, z: 1487.4674}
-    Tangent: {x: 14.861151, y: 0, z: 7.8490014}
-    ScaledTangent: {x: 126.171165, y: 0, z: 66.63802}
-    Distance: 3369.215
-  - Position: {x: 47.33552, y: 0, z: 165.67433}
-    ScaledPosition: {x: 401.87857, y: 0, z: 1406.5751}
-    Tangent: {x: 8.605331, y: 0, z: 12.1915455}
-    ScaledTangent: {x: 73.059265, y: 0, z: 103.50622}
-    Distance: 4024.5627
+    Tangent: {x: -5, y: 0, z: 0}
+    ScaledTangent: {x: -42.449997, y: 0, z: 0}
+    Distance: 2011.089
+  - Position: {x: 163.60112, y: 0, z: 136.33427}
+    ScaledPosition: {x: 1388.9735, y: 0, z: 1157.4779}
+    Tangent: {x: 12.8316765, y: 0, z: 0}
+    ScaledTangent: {x: 108.94093, y: 0, z: 0}
+    Distance: 2486.3035
+  - Position: {x: 81.13239, y: 0, z: 121.69859}
+    ScaledPosition: {x: 688.814, y: 0, z: 1033.2211}
+    Tangent: {x: 1.7598267, y: 0, z: 0}
+    ScaledTangent: {x: 14.9409275, y: 0, z: 0}
+    Distance: 3216.97
+  - Position: {x: 40.639492, y: 0, z: 142.23822}
+    ScaledPosition: {x: 345.02927, y: 0, z: 1207.6024}
+    Tangent: {x: -18.974129, y: 0, z: 0}
+    ScaledTangent: {x: -161.09035, y: 0, z: 0}
+    Distance: 3612.3928
   - Position: {x: 0, y: 0, z: 200}
     ScaledPosition: {x: 0, y: 0, z: 1698}
-    Tangent: {x: 0, y: 0, z: -10}
-    ScaledTangent: {x: 0, y: 0, z: -84.899994}
-    Distance: 4579.288
+    Tangent: {x: 0, y: 0, z: -20}
+    ScaledTangent: {x: 0, y: 0, z: -169.79999}
+    Distance: 4473.2163
   - Position: {x: 0, y: 0, z: 200}
     ScaledPosition: {x: 0, y: 0, z: 1698}
-    Tangent: {x: 0, y: 0, z: -10}
-    ScaledTangent: {x: 0, y: 0, z: -84.899994}
-    Distance: 4677.093
-  - Position: {x: 0, y: 0, z: 165.54167}
-    ScaledPosition: {x: 0, y: 0, z: 1405.4487}
-    Tangent: {x: 17.242207, y: 0, z: -12.652034}
-    ScaledTangent: {x: 146.38634, y: 0, z: -107.415764}
-    Distance: 5005.869
-  - Position: {x: 0, y: 0, z: 119.521866}
-    ScaledPosition: {x: 0, y: 0, z: 1014.7406}
-    Tangent: {x: 3.4708858, y: 0, z: -10.356617}
-    ScaledTangent: {x: 29.46782, y: 0, z: -87.92767}
-    Distance: 5425.1616
-  - Position: {x: 0, y: 0, z: 59.404285}
-    ScaledPosition: {x: 0, y: 0, z: 504.34238}
-    Tangent: {x: 14.558162, y: 0, z: -9.076524}
-    ScaledTangent: {x: 123.59879, y: 0, z: -77.059685}
-    Distance: 5955.4263
+    Tangent: {x: 0, y: 0, z: -20}
+    ScaledTangent: {x: 0, y: 0, z: -169.79999}
+    Distance: 4473.2163
+  - Position: {x: 0, y: 0, z: 144.42169}
+    ScaledPosition: {x: 0, y: 0, z: 1226.1401}
+    Tangent: {x: -20.509747, y: 0, z: -20}
+    ScaledTangent: {x: -174.12775, y: 0, z: -169.79999}
+    Distance: 4979.1533
+  - Position: {x: 0, y: 0, z: 97.538216}
+    ScaledPosition: {x: 0, y: 0, z: 828.0994}
+    Tangent: {x: -22.258766, y: 0, z: -20}
+    ScaledTangent: {x: -188.97691, y: 0, z: -169.79999}
+    Distance: 5439.582
+  - Position: {x: 0, y: 0, z: 60.93207}
+    ScaledPosition: {x: 0, y: 0, z: 517.3133}
+    Tangent: {x: 9.206972, y: 0, z: -20}
+    ScaledTangent: {x: 78.16719, y: 0, z: -169.79999}
+    Distance: 5819.9478
   - Position: {x: 0, y: 0, z: 10}
     ScaledPosition: {x: 0, y: 0, z: 84.899994}
-    Tangent: {x: -2.34, y: 0, z: -2.93}
-    ScaledTangent: {x: -19.866598, y: 0, z: -24.8757}
-    Distance: 6401.7075
+    Tangent: {x: 0, y: 0, z: 0}
+    ScaledTangent: {x: 0, y: 0, z: 0}
+    Distance: 6260.1255
+  - Position: {x: 0, y: 0, z: 0}
+    ScaledPosition: {x: 0, y: 0, z: 0}
+    Tangent: {x: 0, y: 0, z: -1}
+    ScaledTangent: {x: 0, y: 0, z: -8.49}
+    Distance: 6345.0254
   closedPoint:
     Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
-    Tangent: {x: 0, y: 0, z: -10}
+    Tangent: {x: 15, y: 0, z: 0}
     ScaledTangent: {x: 0, y: 0, z: 0}
-    Distance: 6489.3135
-  DebugPosition: {x: -5.5430336, y: 0, z: 4.2588997}
+    Distance: 6352.558
   IsClosedLoop: 1
   Scale: 8.49
   PointSplitAmount: 4
-  RandomTangentXRange: {x: -10, y: 21.07}
-  RandomTangentZRange: {x: -3, y: 3}
+  DebugPosition: {x: -5.5430336, y: 0, z: 4.2588997}
+  RandomTangentXRange: {x: -29, y: 20}
+  RandomTangentZRange: {x: -10, y: 10}
 --- !u!4 &2009850868
 Transform:
   m_ObjectHideFlags: 0
