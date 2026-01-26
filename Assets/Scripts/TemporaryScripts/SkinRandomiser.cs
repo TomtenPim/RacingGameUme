@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 public class SkinRandomiser : MonoBehaviour
 {
 
@@ -11,13 +13,13 @@ public class SkinRandomiser : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void randomiseSkin()
@@ -28,9 +30,9 @@ public class SkinRandomiser : MonoBehaviour
 
     private void randomiseColor()
     {
-        color = new Color(Random.Range(0f,1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         int children = car.transform.childCount;
-        for(int i = 0; i < children; i++)
+        for (int i = 0; i < children; i++)
         {
             car.transform.GetChild(i).GetComponent<MeshRenderer>().material.color = color;
         }
@@ -44,7 +46,7 @@ public class SkinRandomiser : MonoBehaviour
             car.transform.GetChild(i).GetComponent<MeshRenderer>().material.color = color;
         }
     }
-
+#if UNITY_EDITOR
     [CustomEditor(typeof(SkinRandomiser))]
     public class customButton : Editor
     {
@@ -68,6 +70,7 @@ public class SkinRandomiser : MonoBehaviour
             }
 
         }
-
     }
+#endif
+
 }

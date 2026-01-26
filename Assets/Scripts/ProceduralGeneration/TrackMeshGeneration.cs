@@ -1,8 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using Unity.Hierarchy;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 [RequireComponent(typeof(BezierCurve))]
 public class TrackMeshGeneration : ProceduralMesh

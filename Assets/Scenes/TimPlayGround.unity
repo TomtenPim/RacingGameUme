@@ -421,11 +421,72 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8320695245719221370, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4a5d0ab923081c4084ce697fbdd3b4a, type: 3}
+--- !u!1001 &1426784482
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5829640501197963625, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_Name
+      value: PlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.99275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.30024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956287880411227612, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 16d8387aced6ec14687e42e3d3ae5542, type: 3}
 --- !u!1 &1953666731
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RaceManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3166349012448242565, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3883908224704888793, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -731,3 +796,4 @@ SceneRoots:
   - {fileID: 2100360091}
   - {fileID: 1418933901}
   - {fileID: 1969327609}
+  - {fileID: 1426784482}

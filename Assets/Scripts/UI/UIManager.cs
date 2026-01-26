@@ -1,14 +1,12 @@
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.PackageManager;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Splines.Interpolators;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class UIManager : MonoBehaviour
 {
@@ -213,6 +211,7 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(activeSceneIndex);
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(UIManager))]
     public class customButton : Editor
     {
@@ -245,4 +244,5 @@ public class UIManager : MonoBehaviour
         }
 
     }
+#endif
 }

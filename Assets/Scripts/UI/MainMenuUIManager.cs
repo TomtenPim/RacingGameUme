@@ -22,7 +22,11 @@ public class MainMenuUIManager : MonoBehaviour
 
     private void Quit()
     {
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+        return;
+#endif
+
         Application.Quit();
     }
 
