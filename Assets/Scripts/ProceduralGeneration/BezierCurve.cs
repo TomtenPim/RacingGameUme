@@ -10,6 +10,8 @@ using static UnityEngine.GraphicsBuffer;
 [ExecuteInEditMode]
 public class BezierCurve : MonoBehaviour
 {
+    private float totalDistance;
+
     [System.Serializable]
     public class ControlPoint
     {
@@ -22,11 +24,31 @@ public class BezierCurve : MonoBehaviour
 
     [SerializeField]
     public List<ControlPoint> AllPoints = new List<ControlPoint>();
-
     public bool IsEmpty => AllPoints.Count == 0;
     public ControlPoint FirstPoint => !IsEmpty ? AllPoints[0] : null;
     public ControlPoint LastPoint => !IsEmpty ? AllPoints[AllPoints.Count - 1] : null;
     public int TotalPoints => AllPoints.Count;
+
+    public ControlPoint closedPoint = new ControlPoint();
+
+    public float TotalDistance => totalDistance;
+
+    public static BezierCurve Instance;
+
+    public bool IsClosedLoop = true;
+
+    public float Scale = 1.0f;
+
+    public int PointSplitAmount = 2;
+
+    public Vector3 DebugPosition;
+    
+    public Vector2 RandomTangentXRange = new Vector2(-4.0f, 4.0f);
+
+    public Vector2 RandomTangentZRange = new Vector2(-4.0f, 4.0f);
+    
+    public float GetWidth => GetComponent<TrackMeshGeneration>().TrackWidth;
+
     public ControlPoint ControlPointOnTrack(int pointIndex)
     {
         if (pointIndex < 0 || pointIndex > TotalPoints - 1)
@@ -36,24 +58,6 @@ public class BezierCurve : MonoBehaviour
 
         return AllPoints[pointIndex];
     }
-
-    public ControlPoint closedPoint = new ControlPoint();
-
-    private float totalDistance;
-    public float TotalDistance => totalDistance;
-
-    public Vector3 DebugPosition;
-
-    public static BezierCurve Instance;
-
-    public bool IsClosedLoop = true;
-
-    public float Scale = 1.0f;
-
-    public int PointSplitAmount = 2;
-    public Vector2 RandomTangentXRange = new Vector2(-4.0f, 4.0f);
-    public Vector2 RandomTangentZRange = new Vector2(-4.0f, 4.0f);
-    public float GetWidth => GetComponent<TrackMeshGeneration>().TrackWidth;
 
     private void Awake()
     {
@@ -65,12 +69,6 @@ public class BezierCurve : MonoBehaviour
         {
             Debug.LogWarning("Multiple BezierCurve instances detected. Only one instance is allowed.");
             Destroy(this);
-        }
-
-        foreach (var point in AllPoints)
-        {
-            point.ScaledPosition = point.Position * Scale;
-            point.ScaledTangent = point.Tangent * Scale;
         }
 
         ValidatePoints();
@@ -109,7 +107,6 @@ public class BezierCurve : MonoBehaviour
         MakeRandomPointsInTriangleShape();
         ValidatePoints();
         GetComponent<TrackMeshGeneration>().UpdateMesh();
-
     }
 
     public Pose GetClosestPoseFromLocation(Vector3 inLocation, ref float outBlendValue)
@@ -298,9 +295,9 @@ public class BezierCurve : MonoBehaviour
     {
         AllPoints.Clear();
         List<ControlPoint> SourcePoints = new List<ControlPoint>();
-        ControlPoint p0 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, -1) };
-        ControlPoint p1 = new ControlPoint { Position = new Vector3(200, 0, 100), Tangent = new Vector3(0, 0, 2) };
-        ControlPoint p2 = new ControlPoint { Position = new Vector3(0, 0, 200), Tangent = new Vector3(0, 0, -1) };
+        ControlPoint p0 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(15, 0, 0) };
+        ControlPoint p1 = new ControlPoint { Position = new Vector3(200, 0, 100), Tangent = new Vector3(-5, 0, 0) };
+        ControlPoint p2 = new ControlPoint { Position = new Vector3(0, 0, 200), Tangent = new Vector3(0, 0, -20) };
         ControlPoint p3 = new ControlPoint { Position = new Vector3(0, 0, 10), Tangent = new Vector3(2, 0, 0) };
         ControlPoint p4 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
 
@@ -328,16 +325,14 @@ public class BezierCurve : MonoBehaviour
 
                 Vector3 newPosition = Vector3.Lerp(SourcePoints[i].Position, SourcePoints[i + 1].Position, currentT);
 
-                newPosition = newPosition * Random.Range(0.8f, 1.2f);
+                newPosition = newPosition * Random.Range(0.8f, 1.1f);
 
                 Vector3 newTangent = new Vector3(
-                    SourcePoints[i].Tangent.x + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
+                    Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
                     0,
-                    SourcePoints[i].Tangent.z + Random.Range(RandomTangentZRange.x, RandomTangentZRange.y));
+                    SourcePoints[i].Tangent.z);
 
                 Debug.Log("New Position: " + newPosition);
-
-
 
                 ControlPoint tempPoint = new ControlPoint { Position = newPosition, Tangent = newTangent };
 

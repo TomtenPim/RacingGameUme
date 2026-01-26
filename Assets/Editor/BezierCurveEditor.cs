@@ -16,11 +16,12 @@ namespace Bezier
         private float m_fBlend;
         private float m_fDistanceAlongCurve = 0.0f;
         private float progress = 0.0f;
-
+        TrackMeshGeneration m_meshGeneration;
 
         private void OnEnable()
         {
             m_oldTool = Tools.current;
+            m_meshGeneration = (target as BezierCurve).GetComponent<TrackMeshGeneration>();
         }
 
         private void OnDisable()
@@ -119,9 +120,8 @@ namespace Bezier
                 bc.MakeRandomPointsInTriangleShape();
                 bc.ValidatePoints();
 
-                ProceduralMesh pm = target as ProceduralMesh;
 
-                pm.UpdateMesh();
+                m_meshGeneration.UpdateMesh();
             }
         }
 
