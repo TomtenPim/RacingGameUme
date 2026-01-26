@@ -155,66 +155,111 @@ MonoBehaviour:
   AllPoints:
   - Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
-    Tangent: {x: 0, y: 0, z: -10}
-    ScaledTangent: {x: 0, y: 0, z: -30}
+    Tangent: {x: 0, y: 0, z: -1}
+    ScaledTangent: {x: 0, y: 0, z: -3}
     Distance: 0
-  - Position: {x: 114.774994, y: 0, z: 57.387497}
-    ScaledPosition: {x: 344.32498, y: 0, z: 172.16249}
-    Tangent: {x: -3.3002434, y: 0, z: -8.332343}
-    ScaledTangent: {x: -9.90073, y: 0, z: -24.997028}
-    Distance: 390.67465
+  - Position: {x: 35.143894, y: 0, z: 17.571947}
+    ScaledPosition: {x: 105.43169, y: 0, z: 52.715843}
+    Tangent: {x: -0.8508253, y: 0, z: -1.208307}
+    ScaledTangent: {x: -2.552476, y: 0, z: -3.624921}
+    Distance: 118.08686
+  - Position: {x: 87.976395, y: 0, z: 43.988197}
+    ScaledPosition: {x: 263.9292, y: 0, z: 131.9646}
+    Tangent: {x: 1.2773659, y: 0, z: -2.4579792}
+    ScaledTangent: {x: 3.8320978, y: 0, z: -7.3739376}
+    Distance: 295.92114
+  - Position: {x: 112.49956, y: 0, z: 56.24978}
+    ScaledPosition: {x: 337.49866, y: 0, z: 168.74933}
+    Tangent: {x: -0.16260481, y: 0, z: -2.9987054}
+    ScaledTangent: {x: -0.48781443, y: 0, z: -8.996117}
+    Distance: 380.36823
+  - Position: {x: 145.97003, y: 0, z: 72.985016}
+    ScaledPosition: {x: 437.9101, y: 0, z: 218.95505}
+    Tangent: {x: 2.8991342, y: 0, z: 0.2928462}
+    ScaledTangent: {x: 8.697403, y: 0, z: 0.8785386}
+    Distance: 493.88028
   - Position: {x: 200, y: 0, z: 100}
     ScaledPosition: {x: 600, y: 0, z: 300}
-    Tangent: {x: 0, y: 0, z: 10}
-    ScaledTangent: {x: 0, y: 0, z: 30}
-    Distance: 684.4697
+    Tangent: {x: 0, y: 0, z: 2}
+    ScaledTangent: {x: 0, y: 0, z: 6}
+    Distance: 675.4722
   - Position: {x: 200, y: 0, z: 100}
     ScaledPosition: {x: 600, y: 0, z: 300}
-    Tangent: {x: 0, y: 0, z: 10}
-    ScaledTangent: {x: 0, y: 0, z: 30}
-    Distance: 719.0298
-  - Position: {x: 98.37543, y: 0, z: 147.56314}
-    ScaledPosition: {x: 295.12628, y: 0, z: 442.68942}
-    Tangent: {x: -2.6504345, y: 0, z: 9.224489}
-    ScaledTangent: {x: -7.9513035, y: 0, z: 27.673468}
-    Distance: 1058.8618
+    Tangent: {x: 0, y: 0, z: 2}
+    ScaledTangent: {x: 0, y: 0, z: 6}
+    Distance: 682.3842
+  - Position: {x: 180.18614, y: 0, z: 135.1396}
+    ScaledPosition: {x: 540.5584, y: 0, z: 405.41882}
+    Tangent: {x: 2.742691, y: 0, z: 3.4837227}
+    ScaledTangent: {x: 8.228073, y: 0, z: 10.451168}
+    Distance: 804.73145
+  - Position: {x: 121.818954, y: 0, z: 142.12212}
+    ScaledPosition: {x: 365.45685, y: 0, z: 426.36633}
+    Tangent: {x: 0.9522975, y: 0, z: 2.126333}
+    ScaledTangent: {x: 2.8568926, y: 0, z: 6.3789988}
+    Distance: 982.95276
+  - Position: {x: 87.9837, y: 0, z: 175.96742}
+    ScaledPosition: {x: 263.9511, y: 0, z: 527.9023}
+    Tangent: {x: -0.0060191154, y: 0, z: 0.8750477}
+    ScaledTangent: {x: -0.018057346, y: 0, z: 2.625143}
+    Distance: 1126.9382
+  - Position: {x: 32.733932, y: 0, z: 147.3027}
+    ScaledPosition: {x: 98.2018, y: 0, z: 441.9081}
+    Tangent: {x: 1.6409574, y: 0, z: 0.068268776}
+    ScaledTangent: {x: 4.922872, y: 0, z: 0.20480633}
+    Distance: 1313.8137
   - Position: {x: 0, y: 0, z: 200}
     ScaledPosition: {x: 0, y: 0, z: 600}
-    Tangent: {x: 0, y: 0, z: -10}
-    ScaledTangent: {x: 0, y: 0, z: -30}
-    Distance: 1400.3176
+    Tangent: {x: 0, y: 0, z: -1}
+    ScaledTangent: {x: 0, y: 0, z: -3}
+    Distance: 1500.1953
   - Position: {x: 0, y: 0, z: 200}
     ScaledPosition: {x: 0, y: 0, z: 600}
-    Tangent: {x: 0, y: 0, z: -10}
-    ScaledTangent: {x: 0, y: 0, z: -30}
-    Distance: 1434.8777
-  - Position: {x: 0, y: 0, z: 105.42188}
-    ScaledPosition: {x: 0, y: 0, z: 316.26566}
-    Tangent: {x: -0.06954718, y: 0, z: -10.070625}
-    ScaledTangent: {x: -0.20864153, y: 0, z: -30.211876}
-    Distance: 1718.6122
+    Tangent: {x: 0, y: 0, z: -1}
+    ScaledTangent: {x: 0, y: 0, z: -3}
+    Distance: 1503.6512
+  - Position: {x: 0, y: 0, z: 167.61339}
+    ScaledPosition: {x: 0, y: 0, z: 502.84015}
+    Tangent: {x: 0.13681865, y: 0, z: -2.7034721}
+    ScaledTangent: {x: 0.41045594, y: 0, z: -8.110416}
+    Distance: 1600.8129
+  - Position: {x: 0, y: 0, z: 107.20706}
+    ScaledPosition: {x: 0, y: 0, z: 321.6212}
+    Tangent: {x: -0.44433928, y: 0, z: -1.9983265}
+    ScaledTangent: {x: -1.3330178, y: 0, z: -5.99498}
+    Distance: 1782.0481
+  - Position: {x: 0, y: 0, z: 92.40245}
+    ScaledPosition: {x: 0, y: 0, z: 277.20734}
+    Tangent: {x: -0.44607735, y: 0, z: 0.5658188}
+    ScaledTangent: {x: -1.338232, y: 0, z: 1.6974564}
+    Distance: 1826.6329
+  - Position: {x: 0, y: 0, z: 55.121426}
+    ScaledPosition: {x: 0, y: 0, z: 165.36427}
+    Tangent: {x: 1.6525602, y: 0, z: -0.047387183}
+    ScaledTangent: {x: 4.9576807, y: 0, z: -0.14216155}
+    Distance: 1938.9225
   - Position: {x: 0, y: 0, z: 10}
     ScaledPosition: {x: 0, y: 0, z: 30}
     Tangent: {x: 0, y: 0, z: 0}
     ScaledTangent: {x: 0, y: 0, z: 0}
-    Distance: 2004.8779
+    Distance: 2074.5984
   - Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
     Tangent: {x: 0, y: 0, z: -1}
     ScaledTangent: {x: 0, y: 0, z: -3}
-    Distance: 2034.8779
+    Distance: 2104.5984
   closedPoint:
     Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
     Tangent: {x: 0, y: 0, z: -10}
     ScaledTangent: {x: 0, y: 0, z: 0}
-    Distance: 2037.5397
+    Distance: 3110.4185
   DebugPosition: {x: -4.547226, y: 0, z: -105.4213}
-  IsClosedLoop: 1
+  IsClosedLoop: 0
   Scale: 3
-  PointSplitAmount: 10
-  RandomTangentXRange: {x: -4, y: 4}
-  RandomTangentZRange: {x: -4, y: 4}
+  PointSplitAmount: 5
+  RandomTangentXRange: {x: -1, y: 3}
+  RandomTangentZRange: {x: -2, y: 2}
 --- !u!4 &722934540
 Transform:
   m_ObjectHideFlags: 0
@@ -243,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrackMeshGeneration
   trackSubdivisionSpacing: 5
-  trackWidth: 15
+  trackWidth: 20
   trackHeight: 0.1
 --- !u!23 &722934542
 MeshRenderer:
@@ -677,128 +722,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24e491b1747b37b43be681ac45b2a8cb, type: 3}
---- !u!1001 &3513567384502948937
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3518306093586770842, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_Name
-      value: HalfPointLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 29.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70895565
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.70525306
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -89.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8224802660100955232, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5e5cc915890c6d24cb8096396e036a73, type: 3}
---- !u!1001 &8287043139628378650
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2791671332147773662, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_Name
-      value: CheckeredLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 29.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7207326
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.6932131
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -87.77
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510083686314878005, guid: 167543e51d9c2264980da80117f167a4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 167543e51d9c2264980da80117f167a4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1953666733}
-  - {fileID: 8287043139628378650}
   - {fileID: 722934540}
-  - {fileID: 3513567384502948937}
   - {fileID: 2100360091}
   - {fileID: 1418933901}
   - {fileID: 1969327609}

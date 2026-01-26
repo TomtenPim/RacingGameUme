@@ -27,4 +27,9 @@ public class CarController : MonoBehaviour
     {
 
     }
+
+    public void ResetCarBody()
+    {
+        Car.ResetRigidbodyForces();
+    }
 }

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class RaceManager : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class RaceManager : MonoBehaviour
         public float FinishingTime = 0;
         public RaceState RaceState = RaceState.FirstCrossOver;
         public bool IsAbleToFinishLap = true;
+        public Pose CheckPoint = default;
 
         public Action<int> OnPositionChange;
         public Action<int> OnLapChange;
@@ -84,15 +85,19 @@ public class RaceManager : MonoBehaviour
 
     public static RaceManager Instance;
     private Dictionary<CarController, CarRaceState> carsInRace = new();
+    private Dictionary<CarController, CarRaceState> completedRace = new();
     [SerializeField] private RaceData raceData = new(3, 2);
     public RaceData GetRaceData => raceData;
+    private Pose checkeredLinePose;
+    private Pose halfPointLinePose;
     [SerializeField] private GameObject aiCarPrefab;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject CheckeredLine;
-    [SerializeField] private GameObject HalfPointLine;
-    [SerializeField] float carSpawnOffset = 4;
-    [SerializeField] float playerRaceSpawnPosition = 5;
-    string[] randomNames =
+    [SerializeField] private GameObject checkeredLine;
+    [SerializeField] private GameObject halfPointLine;
+    [SerializeField] private float carSpawnOffset = 4;
+    [SerializeField] private float playerRaceSpawnPosition = 5;
+    [SerializeField] private float bezierCurveDistanceOffset = 20;
+    private string[] randomNames =
     {
         "Lloyd Harris", "Cornell Rivera", "Stacie Moon",
         "Penelope York", "Millard Juarez", "Alejandra Bonilla",
@@ -126,13 +131,16 @@ public class RaceManager : MonoBehaviour
             Debug.LogError("UIManager, is not in scene or not instanced, functions may fail");
         }
 
+
+        BezierCurve.Instance.MakeRandomTrack();
+
         InitRace();
     }
 
     private void InitRace()
     {
         // Spawn cars
-        Pose startCarSpawnPose = BezierCurve.Instance.GetPose(0);
+        Pose startCarSpawnPose = BezierCurve.Instance.GetPose(BezierCurve.Instance.ControlPointOnTrack(BezierCurve.Instance.TotalPoints - 2).Distance - bezierCurveDistanceOffset);
 
         Vector3 backDirection = startCarSpawnPose.position - (startCarSpawnPose.position - (startCarSpawnPose.forward * carSpawnOffset));
         Vector3 sideDirection = startCarSpawnPose.position - (startCarSpawnPose.position - (startCarSpawnPose.right * carSpawnOffset));
@@ -195,14 +203,17 @@ public class RaceManager : MonoBehaviour
         }
 
         // Spawn Checkered line
-        Pose linePose = BezierCurve.Instance.GetPose(10);
-        GameObject lineObject = Instantiate(CheckeredLine, linePose.position - new Vector3(0, 1, 0), linePose.rotation);
-        lineObject.transform.localScale = Vector3.one * (BezierCurve.Instance.Scale / 3);
+        Pose linePose = BezierCurve.Instance.GetPose(BezierCurve.Instance.ControlPointOnTrack(BezierCurve.Instance.TotalPoints - 2).Distance);
+        checkeredLinePose = linePose;
+        GameObject lineObject = Instantiate(checkeredLine, linePose.position - new Vector3(0, 0.1f, 0), linePose.rotation);
+        float lineScaleMultiplier = (BezierCurve.Instance.Scale / 3) + BezierCurve.Instance.GetWidth / 60;
+        lineObject.transform.localScale = Vector3.one * lineScaleMultiplier;
 
         // Half Point Line
         linePose = BezierCurve.Instance.GetPose((BezierCurve.Instance.TotalDistance / 2));
-        lineObject = Instantiate(HalfPointLine, linePose.position - new Vector3(0, 1, 0), linePose.rotation);
-        lineObject.transform.localScale = Vector3.one * (BezierCurve.Instance.Scale / 3);
+        halfPointLinePose = linePose;
+        lineObject = Instantiate(halfPointLine, linePose.position - new Vector3(0, 0.1f, 0), linePose.rotation);
+        lineObject.transform.localScale = Vector3.one * lineScaleMultiplier;
 
         UIManager.Instance.StartCountdown(3);
     }
@@ -228,11 +239,13 @@ public class RaceManager : MonoBehaviour
 
             // Get all cars position on the map spline 
 
-            if (updatePosition % 60 != 0)
+            if (updatePosition < 30)
             {
                 updatePosition++;
                 goto WaitForFrame;
             }
+            updatePosition = 0;
+
             (CarRaceState raceState, float pointInTrack)[] positionData = new (CarRaceState raceState, float pointInTrack)[carsInRace.Count];
             int index = 0;
             foreach (var car in carsInRace)
@@ -254,6 +267,11 @@ public class RaceManager : MonoBehaviour
             {
                 for (int j = 0; j < positionData.Length; j++)
                 {
+                    if (completedRace.ContainsValue(positionData[j].raceState))
+                    {
+                        continue;
+                    }
+
                     if (!addedPoint.Contains(positionData[j].raceState))
                     {
                         if (positionData[j].raceState.CurrentLap < bestPoint.raceState.CurrentLap)
@@ -295,6 +313,8 @@ public class RaceManager : MonoBehaviour
         }
 
         CarRaceState carRaceState = carsInRace[inCarController];
+        SetCheckPoint(inCarController, halfPointLinePose);
+
         carRaceState.IsAbleToFinishLap = true;
     }
 
@@ -311,6 +331,8 @@ public class RaceManager : MonoBehaviour
         {
             return;
         }
+
+        SetCheckPoint(inCarController, checkeredLinePose);
 
         carRaceState.IsAbleToFinishLap = false;
         switch (carRaceState.RaceState)
@@ -344,6 +366,10 @@ public class RaceManager : MonoBehaviour
         carRaceState.CompletedRace = true;
         carRaceState.RaceState = RaceState.RaceCompleted;
 
+        completedRace.Add(inCarController, carRaceState);
+
+        carRaceState.RacePosition = completedRace.Count;
+
         string carName = carRaceState.IsPlayer ? "The Player" : randomNames[UnityEngine.Random.Range(0, randomNames.Length)];
 
         UIManager.Instance.AddToLeaderBoard(carRaceState.RacePosition, carName, carRaceState.FinishingTime);
@@ -358,15 +384,30 @@ public class RaceManager : MonoBehaviour
 
     private void CheckIsRaceCompleted()
     {
-        // check if all cars has finished the race  
-        foreach (var carState in carsInRace)
+        // check if all cars has finished the race
+        if (completedRace.Count == carsInRace.Count)
         {
-            if (!carState.Value.CompletedRace)
-            {
-                return;
-            }
+            isRaceCompleted = true;
+        }
+    }
+
+    private void SetCheckPoint(CarController inCarController, Pose inLinePose)
+    {
+        CarRaceState carRaceState = carsInRace[inCarController];
+        carRaceState.CheckPoint = inLinePose;
+    }
+
+    public void TeleportToCheckPoint(CarController inCarController)
+    {
+        CarRaceState carRaceState = carsInRace[inCarController];
+        if (carRaceState.CheckPoint == default)
+        {
+            carRaceState.CheckPoint = BezierCurve.Instance.GetPose(BezierCurve.Instance.ControlPointOnTrack(BezierCurve.Instance.TotalPoints - 2).Distance);
         }
 
-        isRaceCompleted = true;
+        inCarController.ResetCarBody();
+        carRaceState.CheckPoint.position.y = 1;
+        inCarController.CarTransform.position = carRaceState.CheckPoint.position;
+        inCarController.CarTransform.rotation = carRaceState.CheckPoint.rotation;
     }
 }

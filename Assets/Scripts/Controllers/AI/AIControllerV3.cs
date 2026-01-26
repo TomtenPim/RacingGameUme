@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AIControllerV3 : CarController
@@ -11,6 +12,11 @@ public class AIControllerV3 : CarController
     public int laneIndex = 0;
     public float laneWidth = 3f;
 
+
+    private const float MAX_SECONDS_WHEN_TO_RESPAWN = 20;
+    private float offroadTimer = 0;
+
+
     private Pose toDriveTo;
     private float stuckTimer;
     private bool isRecovering;
@@ -22,7 +28,7 @@ public class AIControllerV3 : CarController
         base.Update();
 
         HandleAI();
-
+        OffroadChecker();
     }
 
     private void HandleAI()
@@ -66,7 +72,7 @@ public class AIControllerV3 : CarController
         float forwardDot = Vector3.Dot(Car.transform.forward, toTarget);
 
         float throttle = Mathf.Clamp01(forwardDot);
-        Car.Accelerate(throttle*1.5f);
+        Car.Accelerate(throttle * 1.5f);
     }
 
     private void HandleStuck(float currentSpeed)
@@ -102,6 +108,22 @@ public class AIControllerV3 : CarController
         }
     }
 
+    private void OffroadChecker()
+    {
+        if (Car.IsOffroad)
+        {
+            offroadTimer = Time.deltaTime;
+            if (offroadTimer >= MAX_SECONDS_WHEN_TO_RESPAWN)
+            {
+                RaceManager.Instance.TeleportToCheckPoint(this);
+                offroadTimer = 0;
+            }
+        }
+        else
+        {
+            offroadTimer = 0;
+        }
+    }
 
     //private void OnDrawGizmos()
     //{

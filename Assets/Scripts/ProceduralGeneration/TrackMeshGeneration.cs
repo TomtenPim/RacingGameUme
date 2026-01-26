@@ -12,6 +12,8 @@ public class TrackMeshGeneration : ProceduralMesh
 
     [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackWidth = 2.0f;
+    public float TrackWidth => trackWidth;
+
 
     [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackHeight = 0.1f;

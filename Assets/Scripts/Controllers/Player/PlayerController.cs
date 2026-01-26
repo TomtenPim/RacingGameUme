@@ -7,6 +7,8 @@ public class PlayerController : CarController
     InputAction moveAction;
     InputAction driftAction;
     InputAction pauseAction;
+    InputAction respawnAction;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void OnEnable()
@@ -14,8 +16,11 @@ public class PlayerController : CarController
         moveAction = InputSystem.actions.FindAction("Move");
         driftAction = InputSystem.actions.FindAction("Drift");
         pauseAction = InputSystem.actions.FindAction("Pause");
+        respawnAction = InputSystem.actions.FindAction("Respawn");
+
 
         pauseAction.performed += pauseGame;
+        respawnAction.performed += respawnCar;
     }
 
     protected override void Start()
@@ -65,6 +70,17 @@ public class PlayerController : CarController
         {
             UIManager.Instance.Pause();
         }
+    }
+    private void respawnCar(InputAction.CallbackContext context)
+    {
+        if (Time.timeScale > 0)
+        {
+            if (context.performed)
+            {
+                RaceManager.Instance.TeleportToCheckPoint(this);
+            }
+        }
+
     }
 
 }

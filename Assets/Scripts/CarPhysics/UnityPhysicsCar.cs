@@ -27,6 +27,10 @@ public class UnityPhysicsCar : MonoBehaviour
     float turningAngle = 0;
     Quaternion turningQuaternion = new();
     private float VelocityLastFrame;
+    private bool isOffroad = false;
+    public bool IsOffroad => isOffroad;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,7 +64,7 @@ public class UnityPhysicsCar : MonoBehaviour
         if (VelocityLastFrame - carBody.linearVelocity.magnitude > 20)
         {
             //audioSource.PlayOneShot(crashClip);
-            AudioSource.PlayClipAtPoint(crashClip,transform.position);
+            AudioSource.PlayClipAtPoint(crashClip, transform.position);
         }
 
         if (turningAngle != 0 && turnDirection == 0)
@@ -111,13 +115,28 @@ public class UnityPhysicsCar : MonoBehaviour
                 //CarBody.linearVelocity = (CarBody.linearVelocity.normalized - carBody.transform.forward.normalized * tireGripMultplier).normalized * CarBody.linearVelocity.magnitude;
             }
 
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Offroad") && CarBody.linearVelocity.magnitude >= 10)
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Offroad"))
             {
-                CarBody.linearVelocity = CarBody.linearVelocity * offroadVelocityMultiplier;
+                if (CarBody.linearVelocity.magnitude >= 10)
+                {
+                    CarBody.linearVelocity = CarBody.linearVelocity * offroadVelocityMultiplier;
+                }
+                isOffroad = true;
+            }
+            else
+            {
+                isOffroad = false;
             }
         }
 
         VelocityLastFrame = carBody.linearVelocity.magnitude;
+    }
+
+    public void ResetRigidbodyForces()
+    {
+        carBody.constraints = RigidbodyConstraints.FreezeAll;
+        carBody.constraints = RigidbodyConstraints.None;
+
     }
 
 }
