@@ -295,8 +295,8 @@ public class BezierCurve : MonoBehaviour
     {
         AllPoints.Clear();
         List<ControlPoint> SourcePoints = new List<ControlPoint>();
-        ControlPoint p0 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(15, 0, 0) };
-        ControlPoint p1 = new ControlPoint { Position = new Vector3(200, 0, 100), Tangent = new Vector3(-5, 0, 0) };
+        ControlPoint p0 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(10, 0, -30) };
+        ControlPoint p1 = new ControlPoint { Position = new Vector3(200, 0, 100), Tangent = new Vector3(-5, 0, 5) };
         ControlPoint p2 = new ControlPoint { Position = new Vector3(0, 0, 200), Tangent = new Vector3(0, 0, -20) };
         ControlPoint p3 = new ControlPoint { Position = new Vector3(0, 0, 10), Tangent = new Vector3(2, 0, 0) };
         ControlPoint p4 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
@@ -325,12 +325,12 @@ public class BezierCurve : MonoBehaviour
 
                 Vector3 newPosition = Vector3.Lerp(SourcePoints[i].Position, SourcePoints[i + 1].Position, currentT);
 
-                newPosition = newPosition * Random.Range(0.8f, 1.1f);
+                newPosition = newPosition * Random.Range(0.9f, 1.1f);
 
                 Vector3 newTangent = new Vector3(
-                    Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
+                    SourcePoints[i].Tangent.x + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
                     0,
-                    SourcePoints[i].Tangent.z);
+                    SourcePoints[i].Tangent.z + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y));
 
                 Debug.Log("New Position: " + newPosition);
 
@@ -343,9 +343,8 @@ public class BezierCurve : MonoBehaviour
 
             AllPoints.AddRange(NewPoints);
             NewPoints.Clear();
-            AllPoints.Add(SourcePoints[i + 1]);
         }
-        AllPoints[AllPoints.Count - 1].Tangent = new Vector3(0, 0, 0);
+        AllPoints[AllPoints.Count - 1].Tangent = new Vector3(0, 0, -2);
         AllPoints.Add(EndPoint);
 
     }

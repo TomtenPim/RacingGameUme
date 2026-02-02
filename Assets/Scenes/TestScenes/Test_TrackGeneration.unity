@@ -950,95 +950,80 @@ MonoBehaviour:
   AllPoints:
   - Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
-    Tangent: {x: 15, y: 0, z: 0}
-    ScaledTangent: {x: 127.35, y: 0, z: 0}
+    Tangent: {x: 10, y: 0, z: -30}
+    ScaledTangent: {x: 50, y: 0, z: -150}
     Distance: 0
-  - Position: {x: 53.068596, y: 0, z: 26.534298}
-    ScaledPosition: {x: 450.55237, y: 0, z: 225.27618}
-    Tangent: {x: -5.1741886, y: 0, z: 0}
-    ScaledTangent: {x: -43.92886, y: 0, z: 0}
-    Distance: 516.53815
-  - Position: {x: 107.09603, y: 0, z: 53.548016}
-    ScaledPosition: {x: 909.2453, y: 0, z: 454.62265}
-    Tangent: {x: 10.632879, y: 0, z: 0}
-    ScaledTangent: {x: 90.27314, y: 0, z: 0}
-    Distance: 1039.2251
-  - Position: {x: 143.36272, y: 0, z: 71.68136}
-    ScaledPosition: {x: 1217.1494, y: 0, z: 608.5747}
-    Tangent: {x: -8.26048, y: 0, z: 0}
-    ScaledTangent: {x: -70.13147, y: 0, z: 0}
-    Distance: 1409.6216
+  - Position: {x: 47.066727, y: 0, z: 23.533363}
+    ScaledPosition: {x: 235.33363, y: 0, z: 117.66682}
+    Tangent: {x: 9.9841385, y: 0, z: -27.519175}
+    ScaledTangent: {x: 49.920692, y: 0, z: -137.59587}
+    Distance: 349.3223
+  - Position: {x: 104.72128, y: 0, z: 52.36064}
+    ScaledPosition: {x: 523.60645, y: 0, z: 261.80322}
+    Tangent: {x: 11.910209, y: 0, z: -26.3012}
+    ScaledTangent: {x: 59.551044, y: 0, z: -131.50601}
+    Distance: 743.9137
+  - Position: {x: 161.34436, y: 0, z: 80.67218}
+    ScaledPosition: {x: 806.7218, y: 0, z: 403.3609}
+    Tangent: {x: 12.777286, y: 0, z: -27.005445}
+    ScaledTangent: {x: 63.88643, y: 0, z: -135.02722}
+    Distance: 1132.3639
   - Position: {x: 200, y: 0, z: 100}
-    ScaledPosition: {x: 1698, y: 0, z: 849}
-    Tangent: {x: -5, y: 0, z: 0}
-    ScaledTangent: {x: -42.449997, y: 0, z: 0}
-    Distance: 2011.089
-  - Position: {x: 200, y: 0, z: 100}
-    ScaledPosition: {x: 1698, y: 0, z: 849}
-    Tangent: {x: -5, y: 0, z: 0}
-    ScaledTangent: {x: -42.449997, y: 0, z: 0}
-    Distance: 2011.089
-  - Position: {x: 163.60112, y: 0, z: 136.33427}
-    ScaledPosition: {x: 1388.9735, y: 0, z: 1157.4779}
-    Tangent: {x: 12.8316765, y: 0, z: 0}
-    ScaledTangent: {x: 108.94093, y: 0, z: 0}
-    Distance: 2486.3035
-  - Position: {x: 81.13239, y: 0, z: 121.69859}
-    ScaledPosition: {x: 688.814, y: 0, z: 1033.2211}
-    Tangent: {x: 1.7598267, y: 0, z: 0}
-    ScaledTangent: {x: 14.9409275, y: 0, z: 0}
-    Distance: 3216.97
-  - Position: {x: 40.639492, y: 0, z: 142.23822}
-    ScaledPosition: {x: 345.02927, y: 0, z: 1207.6024}
-    Tangent: {x: -18.974129, y: 0, z: 0}
-    ScaledTangent: {x: -161.09035, y: 0, z: 0}
-    Distance: 3612.3928
+    ScaledPosition: {x: 1000, y: 0, z: 500}
+    Tangent: {x: -5, y: 0, z: 5}
+    ScaledTangent: {x: -25, y: 0, z: 25}
+    Distance: 1422.1357
+  - Position: {x: 153.20485, y: 0, z: 127.67071}
+    ScaledPosition: {x: 766.02423, y: 0, z: 638.3535}
+    Tangent: {x: -0.66186714, y: 0, z: 7.716837}
+    ScaledTangent: {x: -3.3093357, y: 0, z: 38.584183}
+    Distance: 1697.2169
+  - Position: {x: 101.36481, y: 0, z: 152.04721}
+    ScaledPosition: {x: 506.82404, y: 0, z: 760.2361}
+    Tangent: {x: -6.1175485, y: 0, z: 1.2823238}
+    ScaledTangent: {x: -30.587742, y: 0, z: 6.411619}
+    Distance: 1988.1277
+  - Position: {x: 42.024532, y: 0, z: 147.08586}
+    ScaledPosition: {x: 210.12267, y: 0, z: 735.4293}
+    Tangent: {x: -1.791935, y: 0, z: 6.538701}
+    ScaledTangent: {x: -8.959675, y: 0, z: 32.693504}
+    Distance: 2290.2441
   - Position: {x: 0, y: 0, z: 200}
-    ScaledPosition: {x: 0, y: 0, z: 1698}
+    ScaledPosition: {x: 0, y: 0, z: 1000}
     Tangent: {x: 0, y: 0, z: -20}
-    ScaledTangent: {x: 0, y: 0, z: -169.79999}
-    Distance: 4473.2163
-  - Position: {x: 0, y: 0, z: 200}
-    ScaledPosition: {x: 0, y: 0, z: 1698}
-    Tangent: {x: 0, y: 0, z: -20}
-    ScaledTangent: {x: 0, y: 0, z: -169.79999}
-    Distance: 4473.2163
-  - Position: {x: 0, y: 0, z: 144.42169}
-    ScaledPosition: {x: 0, y: 0, z: 1226.1401}
-    Tangent: {x: -20.509747, y: 0, z: -20}
-    ScaledTangent: {x: -174.12775, y: 0, z: -169.79999}
-    Distance: 4979.1533
-  - Position: {x: 0, y: 0, z: 97.538216}
-    ScaledPosition: {x: 0, y: 0, z: 828.0994}
-    Tangent: {x: -22.258766, y: 0, z: -20}
-    ScaledTangent: {x: -188.97691, y: 0, z: -169.79999}
-    Distance: 5439.582
-  - Position: {x: 0, y: 0, z: 60.93207}
-    ScaledPosition: {x: 0, y: 0, z: 517.3133}
-    Tangent: {x: 9.206972, y: 0, z: -20}
-    ScaledTangent: {x: 78.16719, y: 0, z: -169.79999}
-    Distance: 5819.9478
-  - Position: {x: 0, y: 0, z: 10}
-    ScaledPosition: {x: 0, y: 0, z: 84.899994}
+    ScaledTangent: {x: 0, y: 0, z: -100}
+    Distance: 2664.2527
+  - Position: {x: 0, y: 0, z: 164.30713}
+    ScaledPosition: {x: 0, y: 0, z: 821.53564}
+    Tangent: {x: 4.2215977, y: 0, z: -22.890614}
+    ScaledTangent: {x: 21.107988, y: 0, z: -114.453064}
+    Distance: 2843.9924
+  - Position: {x: 0, y: 0, z: 88.76816}
+    ScaledPosition: {x: 0, y: 0, z: 443.8408}
+    Tangent: {x: -4.0941715, y: 0, z: -23.784557}
+    ScaledTangent: {x: -20.470858, y: 0, z: -118.92279}
+    Distance: 3223.445
+  - Position: {x: 0, y: 0, z: 54.79428}
+    ScaledPosition: {x: 0, y: 0, z: 273.9714}
     Tangent: {x: 0, y: 0, z: 0}
     ScaledTangent: {x: 0, y: 0, z: 0}
-    Distance: 6260.1255
+    Distance: 3394.7139
   - Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
     Tangent: {x: 0, y: 0, z: -1}
-    ScaledTangent: {x: 0, y: 0, z: -8.49}
-    Distance: 6345.0254
+    ScaledTangent: {x: 0, y: 0, z: -5}
+    Distance: 3668.6853
   closedPoint:
     Position: {x: 0, y: 0, z: 0}
     ScaledPosition: {x: 0, y: 0, z: 0}
-    Tangent: {x: 15, y: 0, z: 0}
+    Tangent: {x: 10, y: 0, z: -30}
     ScaledTangent: {x: 0, y: 0, z: 0}
-    Distance: 6352.558
+    Distance: 3673.1216
   IsClosedLoop: 1
-  Scale: 8.49
+  Scale: 5
   PointSplitAmount: 4
   DebugPosition: {x: -5.5430336, y: 0, z: 4.2588997}
-  RandomTangentXRange: {x: -29, y: 20}
+  RandomTangentXRange: {x: -5, y: 5}
   RandomTangentZRange: {x: -10, y: 10}
 --- !u!4 &2009850868
 Transform:
