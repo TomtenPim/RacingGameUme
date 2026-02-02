@@ -46,6 +46,8 @@ public class BezierCurve : MonoBehaviour
     public Vector2 RandomTangentXRange = new Vector2(-4.0f, 4.0f);
 
     public Vector2 RandomTangentZRange = new Vector2(-4.0f, 4.0f);
+
+    public Vector2 RandomRangePointPosisionScale = new Vector2(0.9f, 1.1f);
     
     public float GetWidth => GetComponent<TrackMeshGeneration>().TrackWidth;
 
@@ -325,7 +327,7 @@ public class BezierCurve : MonoBehaviour
 
                 Vector3 newPosition = Vector3.Lerp(SourcePoints[i].Position, SourcePoints[i + 1].Position, currentT);
 
-                newPosition = newPosition * Random.Range(0.9f, 1.1f);
+                newPosition = newPosition * Random.Range(RandomRangePointPosisionScale.x, RandomRangePointPosisionScale.y);
 
                 Vector3 newTangent = new Vector3(
                     SourcePoints[i].Tangent.x + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
