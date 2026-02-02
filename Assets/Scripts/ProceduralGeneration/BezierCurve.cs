@@ -11,6 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 public class BezierCurve : MonoBehaviour
 {
     private float totalDistance;
+    public float TotalDistance => totalDistance;
 
     [System.Serializable]
     public class ControlPoint
@@ -31,9 +32,7 @@ public class BezierCurve : MonoBehaviour
 
     public ControlPoint closedPoint = new ControlPoint();
 
-    public float TotalDistance => totalDistance;
-
-    public static BezierCurve Instance;
+    public Vector3 DebugPosition;
 
     public bool IsClosedLoop = true;
 
@@ -41,8 +40,6 @@ public class BezierCurve : MonoBehaviour
 
     public int PointSplitAmount = 2;
 
-    public Vector3 DebugPosition;
-    
     public Vector2 RandomTangentXRange = new Vector2(-4.0f, 4.0f);
 
     public Vector2 RandomTangentZRange = new Vector2(-4.0f, 4.0f);
@@ -51,14 +48,15 @@ public class BezierCurve : MonoBehaviour
     
     public float GetWidth => GetComponent<TrackMeshGeneration>().TrackWidth;
 
-    public ControlPoint ControlPointOnTrack(int pointIndex)
+    public static BezierCurve Instance;
+    public ControlPoint ControlPointOnTrack(int inPointIndex)
     {
-        if (pointIndex < 0 || pointIndex > TotalPoints - 1)
+        if (inPointIndex < 0 || inPointIndex > TotalPoints - 1)
         {
             return null;
         }
 
-        return AllPoints[pointIndex];
+        return AllPoints[inPointIndex];
     }
 
     private void Awake()
@@ -120,7 +118,6 @@ public class BezierCurve : MonoBehaviour
 
         Vector3 closestPoint = Vector3.zero;
         Pose closestPose = new Pose();
-
 
         for (int i = 1; i < AllPoints.Count; ++i)
         {
@@ -297,57 +294,48 @@ public class BezierCurve : MonoBehaviour
     {
         AllPoints.Clear();
         List<ControlPoint> SourcePoints = new List<ControlPoint>();
+        // Define the triangle control points
         ControlPoint p0 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(10, 0, -30) };
         ControlPoint p1 = new ControlPoint { Position = new Vector3(200, 0, 100), Tangent = new Vector3(-5, 0, 5) };
         ControlPoint p2 = new ControlPoint { Position = new Vector3(0, 0, 200), Tangent = new Vector3(0, 0, -20) };
         ControlPoint p3 = new ControlPoint { Position = new Vector3(0, 0, 10), Tangent = new Vector3(2, 0, 0) };
-        ControlPoint p4 = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, 0) };
-
         ControlPoint EndPoint = new ControlPoint { Position = new Vector3(0, 0, 0), Tangent = new Vector3(0, 0, -1) };
+        SourcePoints.AddRange(new ControlPoint[] { p0, p1, p2, p3 });
 
-        SourcePoints.AddRange(new ControlPoint[] { p0, p1, p2, p3, p4 });
-
-
+        // Get the blend amount based on the number of splits
+        float splitBlendAmount = 1.0f;
+        splitBlendAmount = splitBlendAmount / PointSplitAmount;
 
         List<ControlPoint> NewPoints = new List<ControlPoint>();
-        float temp = 1.0f;
 
-        temp = temp / PointSplitAmount;
-
-
-        for (int i = 0; i < SourcePoints.Count - 2; i++)
+        for (int i = 0; i < SourcePoints.Count - 1; i++)
         {
-
-            float currentT = temp;
+            float currentBlendValue = splitBlendAmount;
             AllPoints.Add(SourcePoints[i]);
+
             for (int j = 0; j < PointSplitAmount - 1; j++)
             {
-                Debug.Log("Creating points between " + i + " and " + (i + 1) + ": " + currentT.ToString("0.00") + " " + PointSplitAmount);
-
-
-                Vector3 newPosition = Vector3.Lerp(SourcePoints[i].Position, SourcePoints[i + 1].Position, currentT);
-
+                // Calculate new position by blending between the two source points and adding randomness
+                Vector3 newPosition = Vector3.Lerp(SourcePoints[i].Position, SourcePoints[i + 1].Position, currentBlendValue);
                 newPosition = newPosition * Random.Range(RandomRangePointPosisionScale.x, RandomRangePointPosisionScale.y);
 
+                // Calculate new tangent with randomness
                 Vector3 newTangent = new Vector3(
                     SourcePoints[i].Tangent.x + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
                     0,
                     SourcePoints[i].Tangent.z + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y));
 
-                Debug.Log("New Position: " + newPosition);
+                ControlPoint newPoint = new ControlPoint { Position = newPosition, Tangent = newTangent };
+                NewPoints.Add(newPoint);
 
-                ControlPoint tempPoint = new ControlPoint { Position = newPosition, Tangent = newTangent };
-
-                NewPoints.Add(tempPoint);
-
-                currentT += temp;
+                currentBlendValue += splitBlendAmount;
             }
 
             AllPoints.AddRange(NewPoints);
             NewPoints.Clear();
         }
+
         AllPoints[AllPoints.Count - 1].Tangent = new Vector3(0, 0, -2);
         AllPoints.Add(EndPoint);
-
     }
 }
