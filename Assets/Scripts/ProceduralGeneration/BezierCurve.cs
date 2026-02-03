@@ -1,11 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 
 [ExecuteInEditMode]
 public class BezierCurve : MonoBehaviour
