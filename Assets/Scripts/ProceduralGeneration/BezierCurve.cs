@@ -323,7 +323,7 @@ public class BezierCurve : MonoBehaviour
                 Vector3 newTangent = new Vector3(
                     SourcePoints[i].Tangent.x + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y),
                     0,
-                    SourcePoints[i].Tangent.z + Random.Range(RandomTangentXRange.x, RandomTangentXRange.y));
+                    SourcePoints[i].Tangent.z + Random.Range(RandomTangentZRange.x, RandomTangentZRange.y));
 
                 ControlPoint newPoint = new ControlPoint { Position = newPosition, Tangent = newTangent };
                 NewPoints.Add(newPoint);
