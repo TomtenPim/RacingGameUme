@@ -11,16 +11,21 @@ public class TrackMeshGeneration : ProceduralMesh
     private float trackWidth = 2.0f;
     public float TrackWidth => trackWidth;
 
-
     [SerializeField, UnityEngine.Range(0.1f, 1000.0f)]
     private float trackHeight = 0.1f;
+    private float TrackHeight => trackHeight;
 
-    private float Scale = 1;
+    private float scale = 1;
+
+    private BezierCurve bezierCurve;
 
     private void OnValidate()
     {
-        var bezierCurve = GetComponent<BezierCurve>();
-        Scale = trackSubdivisionSpacing * bezierCurve.Scale;
+        if(bezierCurve == null)
+        {
+            bezierCurve = GetComponent<BezierCurve>();
+        }
+        scale = trackSubdivisionSpacing * bezierCurve.Scale;
     }
 
     protected override Mesh CreateMesh()
@@ -52,11 +57,9 @@ public class TrackMeshGeneration : ProceduralMesh
 
     protected void GenerateTrack(List<Vector3> inVertices, List<int> inTriangles)
     {
-        BezierCurve bezierCurve = GetComponent<BezierCurve>();
-
         Debug.Log(bezierCurve.TotalDistance);
 
-        for (float t = 0; t < bezierCurve.TotalDistance; t += (Scale))
+        for (float t = 0; t < bezierCurve.TotalDistance; t += (scale))
         {
             Pose pose = bezierCurve.GetPose(t);
             AddLoops(pose, inVertices, inTriangles);
@@ -104,7 +107,7 @@ public class TrackMeshGeneration : ProceduralMesh
         int start = inVertices.Count;
 
         Vector3 right = inPose.right * (trackWidth * 0.5f);
-        Vector3 up = inPose.up * trackHeight;
+        Vector3 up = inPose.up * TrackHeight;
         Vector3 forward = inPose.forward * (trackWidth * 0.5f);
 
         inVertices.AddRange(new Vector3[]
